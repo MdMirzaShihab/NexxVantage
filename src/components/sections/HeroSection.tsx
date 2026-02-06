@@ -2,25 +2,14 @@
 
 import { motion } from "motion/react";
 import Button from "@/components/ui/Button";
-import HeroSceneLoader from "@/components/three/HeroSceneLoader";
-import HeroFallback from "@/components/sections/HeroFallback";
+import HeroLottieLoader from "@/components/lottie/HeroLottieLoader";
 import { SITE_CONFIG } from "@/lib/constants";
 
 export default function HeroSection() {
   return (
     <section className="relative flex min-h-screen items-center overflow-hidden bg-brand-secondary">
-      {/* 3D scene — desktop only */}
-      <div className="absolute inset-0 z-0 hidden md:block" aria-hidden="true">
-        <HeroSceneLoader />
-      </div>
-
-      {/* CSS fallback — mobile */}
-      <div className="md:hidden">
-        <HeroFallback />
-      </div>
-
-      {/* Content */}
-      <div className="relative z-10 mx-auto max-w-7xl px-6 py-32">
+      <div className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 items-center gap-8 px-6 py-32 md:grid-cols-2 md:gap-12">
+        {/* Text content */}
         <div className="max-w-3xl">
           <motion.h1
             className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl"
@@ -59,6 +48,18 @@ export default function HeroSection() {
             </Button>
           </motion.div>
         </div>
+
+        {/* Lottie animation */}
+        <motion.div
+          className="flex items-center justify-center"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+        >
+          <div className="w-full max-w-[280px] sm:max-w-[360px] md:max-w-[450px] lg:max-w-[520px]">
+            <HeroLottieLoader />
+          </div>
+        </motion.div>
       </div>
 
       {/* Bottom gradient fade */}
