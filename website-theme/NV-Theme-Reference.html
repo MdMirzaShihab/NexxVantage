@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NexxVantage — Website Theme Reference | Refined Neumorphism</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="nv-theme.css">
+  <style>
+    .ref-section { padding: 4rem 2rem; max-width: 90rem; margin: 0 auto; }
+    .ref-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
+    .ref-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .ref-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+    .ref-swatch { height: 72px; border-radius: var(--nv-radius-md); display: flex; align-items: flex-end; padding: 0.6rem 0.75rem; font-size: 0.7rem; font-family: var(--nv-font-mono); letter-spacing: 0.03em; }
+    .ref-label { font-family: var(--nv-font-mono); font-size: 0.65rem; color: var(--nv-text-muted); margin-bottom: 0.25rem; letter-spacing: 0.06em; text-transform: uppercase; }
+    .ref-spacer { height: 2rem; }
+    .component-row { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; margin-bottom: 1.5rem; }
+    .scale-bar { display: flex; gap: 3px; border-radius: var(--nv-radius-md); overflow: hidden; margin-bottom: 0.5rem; }
+    .scale-bar div { flex: 1; height: 40px; position: relative; }
+    .scale-bar div::after { content: attr(data-label); position: absolute; bottom: 2px; left: 4px; font-size: 0.55rem; font-family: var(--nv-font-mono); opacity: 0.7; }
+    @media (max-width: 768px) { .ref-grid-3, .ref-grid-2 { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════
+     NAVIGATION
+     ═══════════════════════════════════════════════════════════ -->
+<nav class="nv-nav" style="position:sticky; top:0; z-index:100; backdrop-filter:blur(12px);">
+  <a href="#" style="text-decoration:none; display:flex; align-items:center; gap:0.5rem;">
+    <svg width="28" height="28" viewBox="0 0 100 100" fill="none">
+      <circle cx="50" cy="50" r="12" fill="currentColor" style="color:var(--nv-gold-500)"/>
+      <circle cx="50" cy="18" r="6" fill="currentColor" style="color:var(--nv-text-heading)"/><line x1="50" y1="38" x2="50" y2="24" stroke="currentColor" stroke-width="3" style="color:var(--nv-text-heading)"/>
+      <circle cx="82" cy="50" r="6" fill="currentColor" style="color:var(--nv-text-heading)"/><line x1="62" y1="50" x2="76" y2="50" stroke="currentColor" stroke-width="3" style="color:var(--nv-text-heading)"/>
+      <circle cx="50" cy="82" r="6" fill="currentColor" style="color:var(--nv-text-heading)"/><line x1="50" y1="62" x2="50" y2="76" stroke="currentColor" stroke-width="3" style="color:var(--nv-text-heading)"/>
+      <circle cx="18" cy="50" r="6" fill="currentColor" style="color:var(--nv-text-heading)"/><line x1="38" y1="50" x2="24" y2="50" stroke="currentColor" stroke-width="3" style="color:var(--nv-text-heading)"/>
+    </svg>
+    <span style="font-family:var(--nv-font-display); font-size:1.25rem; font-weight:700; color:var(--nv-text-heading);">Nexx<span style="font-weight:400">Vantage</span></span>
+  </a>
+  <div style="flex:1"></div>
+  <a href="#" class="nv-nav-link active">Services</a>
+  <a href="#" class="nv-nav-link">Work</a>
+  <a href="#" class="nv-nav-link">About</a>
+
+  <!-- Theme Toggle -->
+  <div class="nv-theme-toggle" id="themeToggle">
+    <button id="darkBtn" class="active" onclick="setTheme('dark')">Dark</button>
+    <button id="lightBtn" onclick="setTheme('light')">Light</button>
+  </div>
+
+  <a href="#" class="nv-btn nv-btn-primary nv-btn-sm">Get in Touch</a>
+</nav>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     HERO
+     ═══════════════════════════════════════════════════════════ -->
+<section class="nv-hero" style="text-align:center; position:relative;">
+  <svg class="nv-ghost-mark" viewBox="0 0 200 200" fill="none" style="position:absolute; top:-15%; right:-8%; width:60%; opacity:0.04;">
+    <circle cx="100" cy="100" r="24" stroke="white" stroke-width="4"/>
+    <circle cx="100" cy="36" r="12" stroke="white" stroke-width="3"/><line x1="100" y1="76" x2="100" y2="48" stroke="white" stroke-width="3"/>
+    <circle cx="164" cy="100" r="12" stroke="white" stroke-width="3"/><line x1="124" y1="100" x2="152" y2="100" stroke="white" stroke-width="3"/>
+    <circle cx="100" cy="164" r="12" stroke="white" stroke-width="3"/><line x1="100" y1="124" x2="100" y2="152" stroke="white" stroke-width="3"/>
+    <circle cx="36" cy="100" r="12" stroke="white" stroke-width="3"/><line x1="76" y1="100" x2="48" y2="100" stroke="white" stroke-width="3"/>
+  </svg>
+  <div style="position:relative; z-index:1; max-width:56rem; margin:0 auto;">
+    <p class="nv-overline" style="margin-bottom:1rem;">Software &middot; Premium SEO &middot; MCP for AI</p>
+    <h1 style="margin-bottom:1.5rem; color:white;">Premium by Design.<br>Transparent by Default.</h1>
+    <p class="nv-lead" style="margin:0 auto 2.5rem; color:rgba(255,255,255,0.6);">
+      World-class software, premium SEO services, and MCP development for AI integration.
+    </p>
+    <div class="component-row" style="justify-content:center;">
+      <a href="#" class="nv-btn nv-btn-lg" style="background:var(--nv-gold-500); color:var(--nv-midnight); border-color:var(--nv-gold-500); font-weight:700;">Start a Project</a>
+      <a href="#" class="nv-btn nv-btn-lg" style="background:transparent; color:white; border-color:rgba(255,255,255,0.25);">View Our Work</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     01 — COLOR SYSTEM
+     ═══════════════════════════════════════════════════════════ -->
+<section class="ref-section">
+  <p class="nv-overline">01 &mdash; Color System</p>
+  <h2 style="margin:0.5rem 0 0.75rem;">Color Palette</h2>
+  <div class="nv-divider-short" style="margin-bottom:2rem;"></div>
+
+  <div class="ref-grid" style="margin-bottom:2.5rem;">
+    <div>
+      <div class="ref-swatch" style="background:#0F1E35; color:white;">#0F1E35</div>
+      <p class="ref-label" style="margin-top:0.5rem;">Midnight Blue — Primary</p>
+    </div>
+    <div>
+      <div class="ref-swatch" style="background:#C9A84C; color:#0F1E35;">#C9A84C</div>
+      <p class="ref-label" style="margin-top:0.5rem;">Gold Rule — Accent</p>
+    </div>
+    <div>
+      <div class="ref-swatch" style="background:#1A1A2E; color:white;">#1A1A2E</div>
+      <p class="ref-label" style="margin-top:0.5rem;">Charcoal — Body Text</p>
+    </div>
+    <div>
+      <div class="ref-swatch" style="background:#8B8680; color:white;">#8B8680</div>
+      <p class="ref-label" style="margin-top:0.5rem;">Warm Gray — Secondary</p>
+    </div>
+    <div>
+      <div class="ref-swatch" style="background:#F7F6F4; border:1px solid #D1CDC9; color:#8B8680;">#F7F6F4</div>
+      <p class="ref-label" style="margin-top:0.5rem;">Parchment — Light BG</p>
+    </div>
+    <div>
+      <div class="ref-swatch" style="background:#FFFFFF; border:1px solid #E5E3DC; color:#1A1A2E;">#FFFFFF</div>
+      <p class="ref-label" style="margin-top:0.5rem;">Pure White — Surfaces</p>
+    </div>
+  </div>
+
+  <p class="ref-label">Midnight Scale (50–900)</p>
+  <div class="scale-bar">
+    <div style="background:#E8EBF0; color:#0F1E35;" data-label="50"></div>
+    <div style="background:#C5CCD8; color:#0F1E35;" data-label="100"></div>
+    <div style="background:#8B99B1; color:#0F1E35;" data-label="200"></div>
+    <div style="background:#516689; color:white;" data-label="300"></div>
+    <div style="background:#1A3352; color:white;" data-label="400"></div>
+    <div style="background:#0F1E35; color:white;" data-label="500"></div>
+    <div style="background:#0C1829; color:white;" data-label="600"></div>
+    <div style="background:#09121E; color:white;" data-label="700"></div>
+    <div style="background:#060C14; color:white;" data-label="800"></div>
+    <div style="background:#030609; color:white;" data-label="900"></div>
+  </div>
+  <p class="ref-label" style="margin-top:1.5rem;">Gold Scale (50–900)</p>
+  <div class="scale-bar">
+    <div style="background:#FBF7EC; color:#524119;" data-label="50"></div>
+    <div style="background:#F5ECD0; color:#524119;" data-label="100"></div>
+    <div style="background:#EBDA9F; color:#524119;" data-label="200"></div>
+    <div style="background:#E0C76F; color:#524119;" data-label="300"></div>
+    <div style="background:#D4B55D; color:#524119;" data-label="400"></div>
+    <div style="background:#C9A84C; color:#0F1E35;" data-label="500"></div>
+    <div style="background:#B89539; color:white;" data-label="600"></div>
+    <div style="background:#96792E; color:white;" data-label="700"></div>
+    <div style="background:#745D23; color:white;" data-label="800"></div>
+    <div style="background:#524119; color:white;" data-label="900"></div>
+  </div>
+</section>
+
+<div class="nv-divider"></div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     02 — TYPOGRAPHY
+     ═══════════════════════════════════════════════════════════ -->
+<section class="ref-section">
+  <p class="nv-overline">02 &mdash; Typography</p>
+  <h2 style="margin:0.5rem 0 0.75rem;">Type System</h2>
+  <div class="nv-divider-short" style="margin-bottom:2rem;"></div>
+
+  <div class="ref-grid-2" style="margin-bottom:3rem;">
+    <div>
+      <p class="ref-label">Display — Space Grotesk</p>
+      <p style="font-family:var(--nv-font-display); font-size:2.5rem; font-weight:700; color:var(--nv-text-heading); line-height:1.1; margin:0.5rem 0;">NexxVantage</p>
+      <p style="font-family:var(--nv-font-display); font-size:1.125rem; font-style:italic; font-weight:700; color:var(--nv-gold-500); margin:0;">Premium by Design. Transparent by Default.</p>
+    </div>
+    <div>
+      <p class="ref-label">Body — Inter</p>
+      <p style="font-family:var(--nv-font-body); font-size:1rem; line-height:1.6; margin:0.5rem 0;">Building world-class software, premium SEO, and AI integrations from Bangladesh. Every client who works with us gains a distinct advantage.</p>
+      <code class="nv-code-inline">const server = new McpServer("nv")</code>
+    </div>
+  </div>
+
+  <div style="margin-bottom:1.5rem;"><p class="ref-label">6xl — 60px</p><p style="font-family:var(--nv-font-display); font-size:3.75rem; font-weight:700; color:var(--nv-text-heading); line-height:1.05; margin:0;">NexxVantage</p></div>
+  <div style="margin-bottom:1.5rem;"><p class="ref-label">4xl — 36px / H1</p><p style="font-family:var(--nv-font-display); font-size:2.25rem; font-weight:700; color:var(--nv-text-heading); line-height:1.2; margin:0;">Section Heading</p></div>
+  <div style="margin-bottom:1.5rem;"><p class="ref-label">2xl — 24px / H3</p><p style="font-family:var(--nv-font-display); font-size:1.5rem; font-weight:600; color:var(--nv-text-heading); line-height:1.3; margin:0;">Card Heading</p></div>
+  <div style="margin-bottom:1.5rem;"><p class="ref-label">base — 16px / Body</p><p style="font-size:1rem; line-height:1.6; margin:0;">Standard body text in Inter. Max line length 75ch for readability.</p></div>
+  <div style="margin-bottom:1.5rem;"><p class="ref-label">sm — 14px / Caption</p><p style="font-size:0.875rem; color:var(--nv-text-muted); margin:0;">Captions and footnotes in Warm Gray.</p></div>
+  <div><p class="ref-label">Overline</p><p class="nv-overline" style="margin:0;">Section Label — All Caps, Gold, Tracked</p></div>
+</section>
+
+<div class="nv-divider"></div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     03 — BUTTONS
+     ═══════════════════════════════════════════════════════════ -->
+<section class="ref-section">
+  <p class="nv-overline">03 &mdash; Components</p>
+  <h2 style="margin:0.5rem 0 0.75rem;">Buttons</h2>
+  <div class="nv-divider-short" style="margin-bottom:2rem;"></div>
+
+  <p class="ref-label">Primary, Secondary, Ghost</p>
+  <div class="component-row">
+    <button class="nv-btn nv-btn-primary">Primary Action</button>
+    <button class="nv-btn nv-btn-secondary">Secondary</button>
+    <button class="nv-btn nv-btn-ghost">Ghost</button>
+  </div>
+
+  <p class="ref-label">Sizes</p>
+  <div class="component-row">
+    <button class="nv-btn nv-btn-primary nv-btn-sm">Small</button>
+    <button class="nv-btn nv-btn-primary">Default</button>
+    <button class="nv-btn nv-btn-primary nv-btn-lg">Large</button>
+  </div>
+</section>
+
+<div class="nv-divider"></div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     04 — CARDS
+     ═══════════════════════════════════════════════════════════ -->
+<section class="ref-section">
+  <h2 style="margin:0 0 0.75rem;">Cards</h2>
+  <div class="nv-divider-short" style="margin-bottom:2rem;"></div>
+
+  <div class="ref-grid-3">
+    <div class="nv-card nv-card-accent">
+      <p class="nv-overline" style="margin-bottom:0.75rem;">Software</p>
+      <h3 style="font-size:1.25rem; margin:0 0 0.75rem;">Custom Web Applications</h3>
+      <p style="font-size:0.875rem; color:var(--nv-text-secondary); margin:0;">Full-stack Next.js and GSAP development. Built for performance.</p>
+    </div>
+    <div class="nv-card nv-card-accent">
+      <p class="nv-overline" style="margin-bottom:0.75rem;">Premium SEO</p>
+      <h3 style="font-size:1.25rem; margin:0 0 0.75rem;">Search Optimization</h3>
+      <p style="font-size:0.875rem; color:var(--nv-text-secondary); margin:0;">Technical SEO, content strategy, and analytics for organic growth.</p>
+    </div>
+    <div class="nv-card nv-card-accent">
+      <p class="nv-overline" style="margin-bottom:0.75rem;">AI Integration</p>
+      <h3 style="font-size:1.25rem; margin:0 0 0.75rem;">MCP Development</h3>
+      <p style="font-size:0.875rem; color:var(--nv-text-secondary); margin:0;">Model Context Protocol servers connecting systems to AI assistants.</p>
+    </div>
+  </div>
+
+  <div class="ref-spacer"></div>
+  <p class="ref-label">Elevated Cards</p>
+  <div class="ref-grid-3">
+    <div class="nv-card nv-card-elevated" style="text-align:center; padding:2rem;">
+      <p style="font-family:var(--nv-font-display); font-size:2.5rem; font-weight:700; color:var(--nv-text-heading); margin:0;">40+</p>
+      <p style="font-size:0.875rem; color:var(--nv-text-muted); margin:0.25rem 0 0;">Projects Delivered</p>
+    </div>
+    <div class="nv-card nv-card-elevated" style="text-align:center; padding:2rem;">
+      <p style="font-family:var(--nv-font-display); font-size:2.5rem; font-weight:700; color:var(--nv-gold-500); margin:0;">98%</p>
+      <p style="font-size:0.875rem; color:var(--nv-text-muted); margin:0.25rem 0 0;">Client Satisfaction</p>
+    </div>
+    <div class="nv-card nv-card-elevated" style="text-align:center; padding:2rem;">
+      <p style="font-family:var(--nv-font-display); font-size:2.5rem; font-weight:700; color:var(--nv-text-heading); margin:0;">3</p>
+      <p style="font-size:0.875rem; color:var(--nv-text-muted); margin:0.25rem 0 0;">Core Services</p>
+    </div>
+  </div>
+</section>
+
+<div class="nv-divider"></div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     05 — FORMS
+     ═══════════════════════════════════════════════════════════ -->
+<section class="ref-section">
+  <h2 style="margin:0 0 0.75rem;">Forms &amp; Inputs</h2>
+  <div class="nv-divider-short" style="margin-bottom:2rem;"></div>
+
+  <div style="max-width:32rem;">
+    <div style="margin-bottom:1.5rem;">
+      <label class="nv-label">Full Name</label>
+      <input type="text" class="nv-input" placeholder="Md Mirza Shihab">
+    </div>
+    <div style="margin-bottom:1.5rem;">
+      <label class="nv-label">Email</label>
+      <input type="email" class="nv-input" placeholder="hello@nexxvantage.com">
+      <p class="nv-helper-text">We respond within 24 hours.</p>
+    </div>
+    <div style="margin-bottom:1.5rem;">
+      <label class="nv-label">Budget</label>
+      <input type="text" class="nv-input nv-input-error" value="invalid">
+      <p class="nv-helper-text" style="color:var(--nv-error);">Please enter a valid amount.</p>
+    </div>
+    <button class="nv-btn nv-btn-primary">Submit Inquiry</button>
+  </div>
+</section>
+
+<div class="nv-divider"></div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     06 — BADGES & TABLE
+     ═══════════════════════════════════════════════════════════ -->
+<section class="ref-section">
+  <h2 style="margin:0 0 0.75rem;">Badges &amp; Table</h2>
+  <div class="nv-divider-short" style="margin-bottom:2rem;"></div>
+
+  <p class="ref-label">Badges</p>
+  <div class="component-row" style="margin-bottom:2rem;">
+    <span class="nv-badge nv-badge-primary">Software</span>
+    <span class="nv-badge nv-badge-subtle">Premium SEO</span>
+    <span class="nv-badge nv-badge-outline">MCP Dev</span>
+    <span class="nv-badge nv-badge-primary">New</span>
+  </div>
+
+  <table class="nv-table">
+    <thead><tr><th>Service</th><th>Description</th><th>From</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Website Dev</strong></td><td>Full-stack Next.js + GSAP</td><td>30K BDT</td><td><span class="nv-badge nv-badge-subtle" style="font-size:0.6rem;">Active</span></td></tr>
+      <tr><td><strong>Premium SEO</strong></td><td>Technical SEO + content strategy</td><td>15K/mo</td><td><span class="nv-badge nv-badge-subtle" style="font-size:0.6rem;">Active</span></td></tr>
+      <tr><td><strong>MCP Dev</strong></td><td>AI integration servers</td><td>50K BDT</td><td><span class="nv-badge nv-badge-primary" style="font-size:0.6rem;">New</span></td></tr>
+      <tr><td><strong>ERP Systems</strong></td><td>Legal & financial platforms</td><td>100K BDT</td><td><span class="nv-badge nv-badge-subtle" style="font-size:0.6rem;">Active</span></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<div class="nv-divider"></div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     07 — NEUMORPHIC DEPTH SYSTEM
+     ═══════════════════════════════════════════════════════════ -->
+<section class="ref-section">
+  <p class="nv-overline">07 &mdash; Neumorphism</p>
+  <h2 style="margin:0.5rem 0 0.75rem;">Depth System</h2>
+  <div class="nv-divider-short" style="margin-bottom:2rem;"></div>
+
+  <p style="color:var(--nv-text-secondary); margin-bottom:2.5rem; max-width:var(--nv-max-content);">
+    Refined neumorphism creates tactile depth through dual-shadow pairs &mdash; a dark shadow cast below-right and a lighter highlight above-left. Gold accent glows mark interactive focus states. Elements feel pressed into or extruded from the surface.
+  </p>
+
+  <p class="ref-label">Shadow Levels</p>
+  <div class="ref-grid" style="margin-bottom:2.5rem;">
+    <div style="background:var(--nv-bg-page); padding:2rem; border-radius:var(--nv-radius-lg); box-shadow:var(--nv-neu-shadow-sm); text-align:center;">
+      <p class="ref-label" style="margin:0;">neu-sm</p>
+      <p style="font-size:var(--nv-text-sm); color:var(--nv-text-muted); margin:0.25rem 0 0;">Buttons, badges</p>
+    </div>
+    <div style="background:var(--nv-bg-page); padding:2rem; border-radius:var(--nv-radius-lg); box-shadow:var(--nv-neu-shadow); text-align:center;">
+      <p class="ref-label" style="margin:0;">neu</p>
+      <p style="font-size:var(--nv-text-sm); color:var(--nv-text-muted); margin:0.25rem 0 0;">Cards, panels</p>
+    </div>
+    <div style="background:var(--nv-bg-page); padding:2rem; border-radius:var(--nv-radius-lg); box-shadow:var(--nv-neu-shadow-lg); text-align:center;">
+      <p class="ref-label" style="margin:0;">neu-lg</p>
+      <p style="font-size:var(--nv-text-sm); color:var(--nv-text-muted); margin:0.25rem 0 0;">Modals, elevated</p>
+    </div>
+    <div style="background:var(--nv-bg-page); padding:2rem; border-radius:var(--nv-radius-lg); box-shadow:var(--nv-neu-gold-glow); text-align:center; border:1px solid rgba(201,168,76,0.2);">
+      <p class="ref-label" style="margin:0; color:var(--nv-gold-500);">neu-gold</p>
+      <p style="font-size:var(--nv-text-sm); color:var(--nv-text-muted); margin:0.25rem 0 0;">Featured, CTA focus</p>
+    </div>
+  </div>
+
+  <p class="ref-label">Inset (Recessed) Depths</p>
+  <div class="ref-grid" style="margin-bottom:2.5rem;">
+    <div style="background:var(--nv-bg-page); padding:2rem; border-radius:var(--nv-radius-lg); box-shadow:var(--nv-neu-inset-sm); text-align:center;">
+      <p class="ref-label" style="margin:0;">neu-inset-sm</p>
+      <p style="font-size:var(--nv-text-sm); color:var(--nv-text-muted); margin:0.25rem 0 0;">Inputs, text fields</p>
+    </div>
+    <div style="background:var(--nv-bg-page); padding:2rem; border-radius:var(--nv-radius-lg); box-shadow:var(--nv-neu-inset); text-align:center;">
+      <p class="ref-label" style="margin:0;">neu-inset</p>
+      <p style="font-size:var(--nv-text-sm); color:var(--nv-text-muted); margin:0.25rem 0 0;">Code blocks, wells</p>
+    </div>
+    <div style="background:var(--nv-bg-page); padding:2rem; border-radius:var(--nv-radius-lg); box-shadow:var(--nv-neu-pressed); text-align:center;">
+      <p class="ref-label" style="margin:0;">neu-pressed</p>
+      <p style="font-size:var(--nv-text-sm); color:var(--nv-text-muted); margin:0.25rem 0 0;">Active/pressed state</p>
+    </div>
+  </div>
+
+  <p class="ref-label">Interactive Demo — click to see states</p>
+  <div style="display:flex; gap:1.5rem; flex-wrap:wrap;">
+    <button class="neu-interactive" style="background:var(--nv-bg-page); border:none; padding:1.25rem 2rem; border-radius:var(--nv-radius-lg); cursor:pointer; font-family:var(--nv-font-display); font-size:var(--nv-text-sm); font-weight:600; color:var(--nv-text-heading);">
+      Neumorphic Button
+    </button>
+    <button class="neu-interactive" style="background:var(--nv-bg-page); border:1px solid var(--nv-gold-500); padding:1.25rem 2rem; border-radius:var(--nv-radius-lg); cursor:pointer; font-family:var(--nv-font-display); font-size:var(--nv-text-sm); font-weight:600; color:var(--nv-gold-500);">
+      With Gold Accent
+    </button>
+    <div style="background:var(--nv-bg-page); padding:1.25rem 2rem; border-radius:var(--nv-radius-pill); box-shadow:var(--nv-neu-shadow-sm); display:flex; align-items:center; gap:0.75rem;">
+      <span style="width:10px; height:10px; border-radius:50%; background:var(--nv-gold-500); box-shadow: 0 0 8px rgba(201,168,76,0.4);"></span>
+      <span style="font-family:var(--nv-font-display); font-size:var(--nv-text-sm); font-weight:600; color:var(--nv-text-heading);">Status Pill</span>
+    </div>
+  </div>
+</section>
+
+<div class="nv-divider"></div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     08 — PRICING (Neumorphic)
+     ═══════════════════════════════════════════════════════════ -->
+<section class="nv-section-alt" style="padding:5rem 2rem;">
+  <div style="max-width:90rem; margin:0 auto;">
+    <p class="nv-overline" style="text-align:center;">Pricing</p>
+    <h2 style="text-align:center; margin:0.5rem 0 2.5rem;">Choose Your Plan</h2>
+    <div class="ref-grid-3">
+      <div class="nv-pricing-card">
+        <p class="nv-overline" style="margin-bottom:1rem;">Starter</p>
+        <p class="nv-price">15K<span class="nv-price-period"> BDT/mo</span></p>
+        <hr style="margin:1.5rem 0;"><p style="font-size:0.875rem; color:var(--nv-text-secondary); margin-bottom:1.5rem;">Technical SEO audit and monthly reporting.</p>
+        <button class="nv-btn nv-btn-secondary" style="width:100%;">Get Started</button>
+      </div>
+      <div class="nv-pricing-card nv-pricing-card-featured">
+        <p class="nv-overline" style="margin-bottom:1rem;">Professional</p>
+        <p class="nv-price">40K<span class="nv-price-period"> BDT/mo</span></p>
+        <hr style="margin:1.5rem 0;"><p style="font-size:0.875rem; color:var(--nv-text-secondary); margin-bottom:1.5rem;">Full SEO + content, link building, weekly reports.</p>
+        <button class="nv-btn nv-btn-primary" style="width:100%;">Get Started</button>
+      </div>
+      <div class="nv-pricing-card">
+        <p class="nv-overline" style="margin-bottom:1rem;">Enterprise</p>
+        <p class="nv-price" style="font-size:2rem;">Custom</p>
+        <hr style="margin:1.5rem 0;"><p style="font-size:0.875rem; color:var(--nv-text-secondary); margin-bottom:1.5rem;">Full-service SEO, MCP integration, SLA.</p>
+        <button class="nv-btn nv-btn-secondary" style="width:100%;">Contact Us</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     09 — CODE & TESTIMONIAL
+     ═══════════════════════════════════════════════════════════ -->
+<section class="ref-section">
+  <h2 style="margin:0 0 0.75rem;">Code &amp; Testimonial</h2>
+  <div class="nv-divider-short" style="margin-bottom:2rem;"></div>
+
+  <p class="ref-label">Code Block (MCP Server)</p>
+  <pre class="nv-code"><code>import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+
+const server = new McpServer({
+  name: "nexxvantage-legal",
+  version: "1.0.0",
+});
+
+server.tool("search_cases", { query: z.string() }, async ({ query }) =&gt; {
+  const results = await legalDB.search(query);
+  return { content: [{ type: "text", text: JSON.stringify(results) }] };
+});</code></pre>
+
+  <div class="ref-spacer"></div>
+  <div class="nv-testimonial">
+    <blockquote>&ldquo;NexxVantage delivered exactly what they promised &mdash; a high-performance website with animations that feel premium, not gimmicky.&rdquo;</blockquote>
+    <cite><strong style="color:var(--nv-text-heading);">Nayem</strong> &mdash; ZeroPlus Legal, Dhaka</cite>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     FOOTER
+     ═══════════════════════════════════════════════════════════ -->
+<div class="nv-footer-gold-rule"></div>
+<footer class="nv-footer">
+  <div style="max-width:90rem; margin:0 auto;">
+    <div style="display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:2rem; margin-bottom:2rem;">
+      <div>
+        <p style="font-family:var(--nv-font-display); font-size:1.25rem; font-weight:700; color:white; margin:0 0 0.75rem;">Nexx<span style="font-weight:400">Vantage</span></p>
+        <p style="margin:0; max-width:28ch;">Premium by Design. Transparent by Default.</p>
+      </div>
+      <div>
+        <p style="font-family:var(--nv-font-display); font-weight:600; color:white; margin:0 0 0.75rem; font-size:0.875rem;">Services</p>
+        <p style="margin:0.25rem 0;"><a href="#">Software Development</a></p>
+        <p style="margin:0.25rem 0;"><a href="#">Premium SEO</a></p>
+        <p style="margin:0.25rem 0;"><a href="#">MCP Development</a></p>
+      </div>
+      <div>
+        <p style="font-family:var(--nv-font-display); font-weight:600; color:white; margin:0 0 0.75rem; font-size:0.875rem;">Company</p>
+        <p style="margin:0.25rem 0;"><a href="#">About</a></p>
+        <p style="margin:0.25rem 0;"><a href="#">Work</a></p>
+        <p style="margin:0.25rem 0;"><a href="#">Blog</a></p>
+      </div>
+      <div>
+        <p style="font-family:var(--nv-font-display); font-weight:600; color:white; margin:0 0 0.75rem; font-size:0.875rem;">Contact</p>
+        <p style="margin:0.25rem 0;"><a href="mailto:hello@nexxvantage.com">hello@nexxvantage.com</a></p>
+        <p style="margin:0.25rem 0;"><a href="#">nexxvantage.com</a></p>
+        <p style="margin:0.25rem 0;">Dhaka, Bangladesh</p>
+      </div>
+    </div>
+    <div class="nv-footer-divider"></div>
+    <p style="margin:0; text-align:center; font-size:0.75rem;">&copy; 2026 NexxVantage. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+function setTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  document.getElementById('darkBtn').classList.toggle('active', theme === 'dark');
+  document.getElementById('lightBtn').classList.toggle('active', theme === 'light');
+  localStorage.setItem('nv-theme', theme);
+}
+// Default: dark (no data-theme attribute = dark via :root)
+const saved = localStorage.getItem('nv-theme');
+if (saved === 'light') setTheme('light');
+</script>
+
+</body>
+</html>

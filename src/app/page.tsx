@@ -7,8 +7,11 @@ export default function HomePage() {
   return (
     <>
       <HeroSection />
+      <div className="nv-divider" />
       <ServicesOverview />
+      <div className="nv-divider" />
       <WhyNexxVantage />
+      <div className="nv-divider" />
       <CTABanner />
     </>
   );

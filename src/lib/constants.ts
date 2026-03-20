@@ -1,12 +1,12 @@
 export const SITE_CONFIG = {
   name: "NexxVantage",
-  tagline: "We Build Software That Scales",
+  tagline: "Premium by Design. Transparent by Default.",
   description:
-    "Custom software & AI solutions engineered for performance, built for the future.",
+    "We build Enterprise-grade software, ERP platforms, AI-powered products, and custom MCP servers. Engineered with precision, delivered with transparency.",
   url: "https://nexxvantage.com",
   email: "hello@nexxvantage.com",
-  location: "Remote-First",
-  bookingUrl: "#",
+  location: "Dhaka, Bangladesh",
+  bookingUrl: "/contact",
   social: {
     linkedin: "https://linkedin.com/company/nexxvantage",
     twitter: "https://x.com/nexxvantage",
@@ -26,55 +26,83 @@ export const SERVICES = [
     icon: "code" as const,
     title: "Custom Software Development",
     shortDescription:
-      "Web apps, mobile apps, enterprise platforms — tailored to your business.",
+      "Bespoke web apps, platforms, and MCP integrations — architected from scratch, not assembled from templates.",
     fullDescription:
-      "We design and build custom software solutions from the ground up. Whether you need a web application, mobile app, or enterprise platform, we deliver scalable, maintainable software tailored to your specific needs.",
+      "Every NexxVantage project is designed and built from the ground up. We deliver full-stack web applications, mobile platforms, enterprise systems, and MCP server integrations using Next.js, React, and Node.js — with disciplined Agile delivery, so you get predictable sprints and measurable progress from day one.",
     keyPoints: [
-      "Full-stack development",
-      "Scalable architecture",
-      "Agile delivery",
+      "Full-stack Next.js & React architecture",
+      "MCP server integration & custom tooling",
+      "From MVP to enterprise scale",
+    ],
+  },
+  {
+    id: "erp-enterprise",
+    icon: "building" as const,
+    title: "ERP & Enterprise Systems",
+    shortDescription:
+      "Business logic designed by finance experts. Built by senior engineers.",
+    fullDescription:
+      "Every ERP system we deliver starts with rigorous business logic — designed by professionals who understand accounting and operations inside out. The result: platforms that handle real operational complexity — billing, case management, financial reporting, HR, and document workflows — with numbers you can trust.",
+    keyPoints: [
+      "Accounting-verified financial logic",
+      "Law firm & professional services focus",
+      "Cross-department workflow automation",
     ],
   },
   {
     id: "ai-ml",
     icon: "brain" as const,
-    title: "AI & Machine Learning Solutions",
+    title: "AI, MCP Servers & Intelligent Automation",
     shortDescription:
-      "Intelligent automation, predictive systems, AI-powered products.",
+      "Custom MCP server development, practical AI integrations, and automation that delivers measurable efficiency.",
     fullDescription:
-      "Leverage the power of artificial intelligence to transform your business. From custom AI models to LLM integration, we build intelligent systems that automate processes and unlock new capabilities.",
+      "We build custom MCP (Model Context Protocol) servers that connect AI models to your business data and tools — giving LLMs secure, structured access to databases, APIs, and internal systems. Beyond MCP, we deliver end-to-end AI integration: document analysis, smart reporting, workflow automation, and AI-assisted drafting — all production-grade and built to deliver ROI from day one.",
     keyPoints: [
-      "Custom AI models",
-      "NLP & computer vision",
-      "LLM integration",
+      "Custom MCP server development & deployment",
+      "LLM integration (OpenAI, Claude, custom models)",
+      "Workflow automation with n8n & custom pipelines",
+    ],
+  },
+  {
+    id: "white-label",
+    icon: "handshake" as const,
+    title: "White-Label Development Partnership",
+    shortDescription:
+      "Your brand, our engineering. Senior-level execution under NDA.",
+    fullDescription:
+      "For agencies and consultancies that need a premium technical partner without the overhead. We operate invisibly under your brand — dedicated delivery, clear communication, no juniors, no outsourcing. Your clients get the quality they expect. You keep the relationship.",
+    keyPoints: [
+      "NDA-backed, fully white-labelled",
+      "Senior engineers only — no outsourcing",
+      "Dedicated project manager per engagement",
     ],
   },
   {
     id: "cloud",
     icon: "cloud" as const,
-    title: "Cloud & Scalable Architecture",
+    title: "Cloud & Infrastructure",
     shortDescription:
-      "Cloud-native infrastructure built to grow with you.",
+      "Infrastructure-as-code on AWS, GCP, or Azure — built to scale and optimised for cost.",
     fullDescription:
-      "Build on a foundation that scales. We architect and deploy cloud-native solutions using modern infrastructure practices, ensuring your platform performs reliably as you grow.",
+      "We architect cloud-native infrastructure using Terraform, Docker, and Kubernetes. Every deployment includes CI/CD pipelines, automated testing, monitoring, and cost optimisation — so your platform performs reliably as you grow without runaway cloud bills.",
     keyPoints: [
-      "AWS / GCP / Azure",
-      "Microservices & CI/CD",
-      "DevOps automation",
+      "AWS / GCP / Azure certified",
+      "CI/CD pipelines & DevOps automation",
+      "Cost optimisation & monitoring",
     ],
   },
   {
     id: "ui-ux",
     icon: "palette" as const,
-    title: "UI/UX Design",
+    title: "UI/UX & Design Systems",
     shortDescription:
-      "Premium interfaces that users love.",
+      "Premium interfaces that convert — grounded in accessibility and user research.",
     fullDescription:
-      "Great software deserves great design. We craft intuitive, visually stunning interfaces grounded in user research and modern design principles, ensuring every interaction feels seamless.",
+      "Great software deserves great design. We craft conversion-optimised interfaces backed by user research, WCAG accessibility compliance, and scalable design systems. Every component is built to work across devices and tested with real users before launch.",
     keyPoints: [
-      "Design systems",
-      "Prototyping & testing",
-      "Responsive design",
+      "WCAG-compliant design systems",
+      "Conversion-optimised interfaces",
+      "User research & prototype testing",
     ],
   },
 ] as const;
@@ -83,24 +111,24 @@ export type ServiceIcon = (typeof SERVICES)[number]["icon"];
 
 export const VALUE_PROPS = [
   {
-    title: "Future-Ready Tech",
+    title: "Radical Transparency",
     description:
-      "We build with the latest technologies and forward-thinking architecture, so your software stays ahead of the curve.",
+      "No hidden costs. No scope surprises. Weekly progress reports and open access to your project board — because trust is built on visibility, not promises.",
   },
   {
-    title: "Scalable Architecture",
+    title: "Premium Without the Agency Tax",
     description:
-      "Every solution is engineered to grow with your business — from MVP to enterprise scale.",
+      "Boutique-quality output at a fraction of large agency overhead. Every project is led and delivered by senior professionals — never handed off to juniors.",
   },
   {
-    title: "Client-First Approach",
+    title: "Rare Hybrid Expertise",
     description:
-      "Your vision drives our work. We collaborate closely to deliver exactly what you need, on time.",
+      "Deep expertise across engineering, finance, AI, and MCP server development. We understand your business and your systems — so every platform we build is technically excellent and future-ready.",
   },
   {
-    title: "AI-Powered Innovation",
+    title: "Disciplined Delivery",
     description:
-      "We integrate cutting-edge AI capabilities to give your products a competitive edge.",
+      "Structured project management means predictable sprints, documented processes, and on-time delivery. What we promise is exactly what you receive.",
   },
 ] as const;
 
@@ -115,8 +143,10 @@ export const BUDGET_OPTIONS = [
 export const SERVICE_OPTIONS = [
   { value: "", label: "Select a service" },
   { value: "custom-software", label: "Custom Software Development" },
-  { value: "ai-ml", label: "AI & Machine Learning Solutions" },
-  { value: "cloud", label: "Cloud & Scalable Architecture" },
-  { value: "ui-ux", label: "UI/UX Design" },
+  { value: "erp-enterprise", label: "ERP & Enterprise Systems" },
+  { value: "ai-ml", label: "AI, MCP Servers & Automation" },
+  { value: "white-label", label: "White-Label Partnership" },
+  { value: "cloud", label: "Cloud & Infrastructure" },
+  { value: "ui-ux", label: "UI/UX & Design Systems" },
   { value: "not-sure", label: "Not sure yet" },
 ] as const;

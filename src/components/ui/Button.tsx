@@ -12,13 +12,10 @@ interface ButtonProps {
   onClick?: () => void;
 }
 
-const variants: Record<ButtonVariant, string> = {
-  primary:
-    "bg-brand-primary text-black font-semibold hover:bg-brand-primary/90 shadow-glow hover:shadow-glow-lg",
-  ghost:
-    "bg-transparent text-white border border-white/20 hover:border-brand-primary/50 hover:text-brand-primary",
-  outline:
-    "bg-transparent text-brand-primary border border-brand-primary/50 hover:bg-brand-primary/10 hover:border-brand-primary",
+const variantClasses: Record<ButtonVariant, string> = {
+  primary: "nv-btn-primary",
+  ghost: "nv-btn-ghost",
+  outline: "nv-btn-secondary",
 };
 
 export default function Button({
@@ -30,10 +27,7 @@ export default function Button({
   disabled = false,
   onClick,
 }: ButtonProps) {
-  const base =
-    "inline-flex items-center justify-center gap-2 rounded-lg px-6 py-3 text-sm font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2 focus-visible:ring-offset-brand-secondary disabled:opacity-50 disabled:pointer-events-none";
-
-  const classes = `${base} ${variants[variant]} ${className}`;
+  const classes = `nv-btn ${variantClasses[variant]} ${className}`;
 
   if (href) {
     return (

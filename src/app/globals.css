@@ -2,83 +2,44 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #0A0A0A;
-  --foreground: #FFFFFF;
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-}
-
-/* Custom scrollbar */
+/* Custom scrollbar — NV brand */
 ::-webkit-scrollbar {
   width: 8px;
 }
-
 ::-webkit-scrollbar-track {
-  background: #0A0A0A;
+  background: var(--nv-bg-surface-2);
 }
-
 ::-webkit-scrollbar-thumb {
-  background: #1A1A2E;
+  background: var(--nv-border-strong);
   border-radius: 4px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
-  background: #00C853;
+  background: var(--nv-gold, #C9A84C);
 }
 
-/* Selection */
-::selection {
-  background: rgba(0, 200, 83, 0.3);
-  color: #FFFFFF;
+/* Footer helper classes — CSS-only hover (no JS events in server components) */
+.footer-text {
+  color: var(--nv-footer-text);
+}
+.footer-heading {
+  color: var(--nv-text-accent);
+}
+.footer-link {
+  color: var(--nv-footer-link);
+  text-decoration: none;
+  transition: color var(--nv-duration, 200ms) var(--nv-ease, ease);
+}
+.footer-link:hover {
+  color: var(--nv-footer-link-hover);
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-
-  .glass {
-    background: rgba(26, 26, 46, 0.6);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-  }
-
-  .glass-hover:hover {
-    border-color: rgba(0, 200, 83, 0.3);
-    box-shadow: 0 0 20px rgba(0, 200, 83, 0.1);
-  }
-
-  .glow-border {
-    border: 1px solid rgba(0, 200, 83, 0.2);
-  }
-
-  .glow-border-hover:hover {
-    border-color: rgba(0, 200, 83, 0.5);
-    box-shadow: 0 0 30px rgba(0, 200, 83, 0.15);
-  }
-
-  .text-gradient {
-    background: linear-gradient(135deg, #00C853, #76FF03);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  /* Card 3D tilt on hover */
-  .card-tilt {
-    perspective: 1000px;
-  }
-
-  .card-tilt > * {
-    transition: transform 0.3s ease;
-  }
-
-  .card-tilt:hover > * {
-    transform: rotateY(-2deg) rotateX(2deg) scale(1.02);
-  }
+/* Ghost buttons inside .nv-hero adapt to theme */
+.nv-hero .nv-btn-ghost {
+  color: var(--nv-hero-muted) !important;
+  border-color: var(--nv-border-default);
+}
+.nv-hero .nv-btn-ghost:hover {
+  color: var(--nv-hero-heading) !important;
+  background: var(--nv-btn-ghost-hover-bg);
+  border-color: var(--nv-border-strong);
 }

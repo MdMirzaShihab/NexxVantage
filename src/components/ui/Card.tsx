@@ -2,18 +2,30 @@ interface CardProps {
   children: React.ReactNode;
   className?: string;
   hover?: boolean;
+  accent?: boolean;
+  elevated?: boolean;
 }
 
-export default function Card({ children, className = "", hover = true }: CardProps) {
+export default function Card({
+  children,
+  className = "",
+  hover = true,
+  accent = true,
+  elevated = false,
+}: CardProps) {
+  const cardClasses = [
+    "nv-card",
+    accent ? "nv-card-accent" : "",
+    elevated ? "nv-card-elevated" : "",
+    !hover ? "hover:transform-none hover:shadow-none" : "",
+    className,
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   return (
-    <div className={hover ? "card-tilt" : ""}>
-      <div
-        className={`rounded-2xl glass p-6 transition-all duration-300 ${
-          hover ? "glass-hover hover:-translate-y-1" : ""
-        } ${className}`}
-      >
-        {children}
-      </div>
+    <div className={cardClasses}>
+      {children}
     </div>
   );
 }

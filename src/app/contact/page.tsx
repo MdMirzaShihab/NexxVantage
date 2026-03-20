@@ -17,7 +17,7 @@ export default function ContactPage() {
         subtitle="Tell us about your project or book a call — we'd love to hear from you."
       />
 
-      <section className="py-16 sm:py-24">
+      <section className="nv-section-alt py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-6">
           <div className="grid gap-16 lg:grid-cols-5">
             <div className="lg:col-span-3">

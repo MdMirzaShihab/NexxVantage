@@ -7,7 +7,7 @@ import { SERVICES } from "@/lib/constants";
 export const metadata: Metadata = {
   title: "Services",
   description:
-    "End-to-end software solutions from concept to deployment. Custom development, AI, cloud architecture, and UI/UX design.",
+    "Custom software, MCP server development, AI systems, ERP integration, white-label partnership, cloud architecture, and UI/UX design — delivered with precision from Dhaka, Bangladesh.",
 };
 
 export default function ServicesPage() {
@@ -18,20 +18,24 @@ export default function ServicesPage() {
         subtitle="End-to-end solutions from concept to deployment."
       />
 
-      <section className="py-8 sm:py-16">
-        <div className="mx-auto max-w-7xl px-6 divide-y divide-white/5">
+      <section className="py-8 sm:py-16" style={{ background: "var(--nv-bg-page)" }}>
+        <div className="mx-auto max-w-7xl px-6">
           {SERVICES.map((service, i) => (
-            <ServiceBlock
-              key={service.id}
-              icon={service.icon}
-              title={service.title}
-              description={service.fullDescription}
-              keyPoints={service.keyPoints}
-              reversed={i % 2 !== 0}
-            />
+            <div key={service.id}>
+              <ServiceBlock
+                icon={service.icon}
+                title={service.title}
+                description={service.fullDescription}
+                keyPoints={service.keyPoints}
+                reversed={i % 2 !== 0}
+              />
+              {i < SERVICES.length - 1 && <div className="nv-divider-subtle" />}
+            </div>
           ))}
         </div>
       </section>
+
+      <div className="nv-divider" />
 
       <CTABanner
         title="Have a Project in Mind?"

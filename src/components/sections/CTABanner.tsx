@@ -13,19 +13,29 @@ interface CTABannerProps {
 }
 
 export default function CTABanner({
-  title = "Ready to Build Something Extraordinary?",
+  title = "Your Next Platform Starts With a Conversation",
   primaryLabel = "Book a Consultation",
   primaryHref = SITE_CONFIG.bookingUrl,
   secondaryLabel = "Get in Touch",
   secondaryHref = "/contact",
 }: CTABannerProps) {
   return (
-    <section className="relative overflow-hidden bg-gradient-cta py-24 sm:py-32">
-      {/* Subtle glow effect */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[400px] w-[600px] rounded-full bg-brand-primary/5 blur-3xl" />
+    <section
+      className="relative overflow-hidden py-24 sm:py-32"
+      style={{ background: "var(--nv-cta-bg)" }}
+    >
+      {/* Subtle gold glow effect */}
+      <div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[400px] w-[600px] rounded-full blur-3xl"
+        style={{ background: "var(--nv-gold-bg-subtle)" }}
+      />
 
       <AnimatedSection className="relative z-10 mx-auto max-w-4xl px-6 text-center">
-        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
+        <p className="nv-overline mb-4">Get Started</p>
+        <h2
+          className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl font-display"
+          style={{ color: "var(--nv-cta-text)" }}
+        >
           {title}
         </h2>
         <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">

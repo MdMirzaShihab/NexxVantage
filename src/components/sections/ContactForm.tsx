@@ -32,19 +32,25 @@ export default function ContactForm() {
 
   if (status === "success") {
     return (
-      <div className="rounded-2xl glass p-8 text-center">
-        <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-brand-primary/10">
-          <svg className="h-8 w-8 text-brand-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+      <div className="nv-card nv-card-accent p-8 text-center">
+        <div
+          className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full"
+          style={{ background: "var(--nv-gold-bg-light)", color: "var(--nv-gold)" }}
+        >
+          <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
           </svg>
         </div>
-        <h3 className="text-xl font-bold">Message Sent!</h3>
-        <p className="mt-2 text-brand-gray">
+        <h3 className="text-xl font-bold font-display" style={{ color: "var(--nv-text-heading)" }}>
+          Message Sent!
+        </h3>
+        <p className="mt-2" style={{ color: "var(--nv-text-secondary)" }}>
           Thanks for reaching out. We&apos;ll get back to you within 24 hours.
         </p>
         <button
           onClick={() => setStatus("idle")}
-          className="mt-6 text-sm text-brand-primary hover:underline"
+          className="mt-6 text-sm transition-colors"
+          style={{ color: "var(--nv-gold)" }}
         >
           Send another message
         </button>
@@ -75,7 +81,7 @@ export default function ContactForm() {
       />
 
       {status === "error" && (
-        <p className="text-sm text-red-400">
+        <p className="text-sm" style={{ color: "var(--nv-error)" }}>
           Something went wrong. Please try again or email us directly.
         </p>
       )}
