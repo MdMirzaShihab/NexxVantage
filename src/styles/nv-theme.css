@@ -166,6 +166,8 @@
   --nv-text-4xl:   2.25rem;
   --nv-text-5xl:   3rem;
   --nv-text-6xl:   3.75rem;
+  --nv-text-display:    clamp(2.75rem, 6vw, 4.75rem);
+  --nv-text-display-lg: clamp(3.25rem, 7.5vw, 5.5rem);
 
   /* ── Layout ── */
   --nv-max-content:  75ch;
@@ -906,3 +908,70 @@ hr {
   box-shadow: var(--nv-neu-pressed);
   transform: translateY(0);
 }
+
+/* ── VELVET (3D moments stay midnight in both themes) ── */
+/* Applied to Hero, Method, and CTA sections. Re-pins dark tokens so children
+   using semantic tokens stay midnight even when <html data-theme="light">. */
+.nv-velvet {
+  --nv-bg-page: var(--nv-midnight-500);
+  --nv-bg-surface: var(--nv-midnight-400);
+  --nv-bg-surface-2: var(--nv-midnight-600);
+  --nv-text-primary: #F0F2F5;
+  --nv-text-heading: var(--nv-white);
+  --nv-text-secondary: var(--nv-midnight-200);
+  --nv-text-muted: var(--nv-midnight-300);
+  --nv-text-accent: var(--nv-gold-400);
+  --nv-border-default: rgba(255, 255, 255, 0.08);
+  --nv-hero-heading: var(--nv-white);
+  --nv-hero-muted: rgba(255, 255, 255, 0.6);
+  --nv-hero-accent: var(--nv-gold-400);
+  --nv-neu-shadow:
+    6px 6px 14px rgba(3, 6, 9, 0.6),
+    -6px -6px 14px rgba(26, 51, 82, 0.25);
+  --nv-neu-inset:
+    inset 3px 3px 8px rgba(3, 6, 9, 0.5),
+    inset -3px -3px 8px rgba(26, 51, 82, 0.2);
+  background-color: var(--nv-midnight-500);
+  color: var(--nv-text-primary);
+  color-scheme: dark;
+}
+
+/* ── SHEEN (cursor-following gold glow on panels — never on text) ── */
+.nv-sheen { position: relative; overflow: hidden; }
+.nv-sheen::before {
+  content: '';
+  position: absolute; inset: 0;
+  opacity: 0;
+  transition: opacity var(--nv-duration) var(--nv-ease);
+  background: radial-gradient(320px circle at var(--mx, 50%) var(--my, 50%),
+              var(--nv-gold-bg-light), transparent 65%);
+  pointer-events: none;
+}
+.nv-sheen:hover::before { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .nv-sheen::before { display: none; }
+}
+
+/* ── RECESSED PLAQUE (Why NexxVantage) ── */
+.nv-plaque {
+  background: var(--nv-bg-page);
+  border-radius: var(--nv-radius-lg);
+  padding: 1.5rem 1.75rem;
+  box-shadow: var(--nv-neu-inset);
+}
+
+/* ── FOCUS VISIBILITY (global) ── */
+:focus-visible {
+  outline: 2px solid var(--nv-gold-400);
+  outline-offset: 3px;
+  border-radius: var(--nv-radius-sm);
+}
+
+/* ── SKIP LINK ── */
+.nv-skip-link {
+  position: absolute; left: -9999px; top: 0; z-index: 100;
+  background: var(--nv-gold-500); color: var(--nv-midnight-500);
+  font-family: var(--nv-font-display); font-weight: 600;
+  padding: 0.6rem 1.2rem; border-radius: 0 0 var(--nv-radius-md) 0;
+}
+.nv-skip-link:focus { left: 0; }
