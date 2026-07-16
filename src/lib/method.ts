@@ -47,6 +47,14 @@ export const METHOD_PAGE = {
     heading: "Change is cheap here",
     body: "Priorities will change — that is not a risk to our process, it is the reason our process exists. Because phases are planned against your business calendar and re-planned each cycle, changing direction costs a conversation, not a contract renegotiation. That is what agile means when it is practised rather than performed.",
   },
+  faqHeading: "Questions we actually get asked",
+  phaseLabel: "Phase",
+  receiveLabel: "You receive:",
+  cta: {
+    heading: "Map your phases",
+    sub: "The consultation is the first deliverable — and it is yours to keep.",
+    button: "Book a consultation",
+  },
 } as const;
 
 export const METHOD_FAQ = [
