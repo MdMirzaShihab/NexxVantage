@@ -18,7 +18,7 @@ export default function ContactPage() {
       />
 
       <section className="nv-section-alt py-16 sm:py-24">
-        <div className="mx-auto max-w-7xl px-6">
+        <div className="mx-auto max-w-7xl px-4 md:px-6">
           <div className="grid gap-16 lg:grid-cols-5">
             <div className="lg:col-span-3">
               <ContactForm />

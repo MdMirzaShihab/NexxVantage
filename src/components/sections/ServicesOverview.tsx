@@ -10,8 +10,8 @@ import { SERVICES } from "@/lib/constants";
 
 export default function ServicesOverview() {
   return (
-    <section className="py-24 sm:py-32" style={{ background: "var(--nv-bg-page)" }}>
-      <div className="mx-auto max-w-7xl px-6">
+    <section className="py-12 sm:py-24 md:py-32" style={{ background: "var(--nv-bg-page)" }}>
+      <div className="mx-auto max-w-7xl px-4 md:px-6">
         <AnimatedSection>
           <SectionHeading
             overline="Our Expertise"

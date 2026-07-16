@@ -7,8 +7,8 @@ import { VALUE_PROPS } from "@/lib/constants";
 
 export default function WhyNexxVantage() {
   return (
-    <section className="nv-section-alt py-24 sm:py-32">
-      <div className="mx-auto max-w-7xl px-6">
+    <section className="nv-section-alt py-12 px-4 sm:py-24 md:py-32">
+      <div className="mx-auto max-w-7xl px-4 md:px-6">
         <AnimatedSection>
           <SectionHeading
             overline="The NexxVantage Difference"
@@ -17,7 +17,7 @@ export default function WhyNexxVantage() {
           />
         </AnimatedSection>
 
-        <StaggerContainer className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <StaggerContainer className="grid gap-6 sm:gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {VALUE_PROPS.map((prop) => (
             <StaggerItem key={prop.title}>
               <div className="group">

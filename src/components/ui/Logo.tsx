@@ -3,7 +3,7 @@ import Link from "next/link";
 function NexusMark() {
   return (
     <svg
-      className="h-9 w-9 shrink-0"
+      className="h-7 w-7 md:h-9 md:w-9 shrink-0"
       viewBox="0 0 112 112"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -33,9 +33,9 @@ function NexusMark() {
 
 export default function Logo() {
   return (
-    <Link href="/" className="flex items-center gap-2.5 font-display">
+    <Link href="/" className="flex items-center gap-2 md:gap-2.5 font-display">
       <NexusMark />
-      <span className="text-xl tracking-tight leading-none">
+      <span className="text-base md:text-xl tracking-tight leading-none">
         <span className="font-bold" style={{ color: "var(--nv-gold)" }}>
           Nexx
         </span>

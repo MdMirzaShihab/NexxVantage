@@ -11,8 +11,8 @@ export default function Footer() {
       <div className="nv-footer-gold-rule" />
 
       <footer className="nv-footer">
-        <div className="mx-auto max-w-7xl px-6 py-16">
-          <div className="grid gap-12 md:grid-cols-3">
+        <div className="mx-auto max-w-7xl px-4 md:px-6 py-12 md:py-16">
+          <div className="grid gap-8 md:gap-12 md:grid-cols-3">
             {/* Logo & tagline */}
             <div>
               <Logo />

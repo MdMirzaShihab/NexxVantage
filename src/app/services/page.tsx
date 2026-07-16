@@ -18,8 +18,8 @@ export default function ServicesPage() {
         subtitle="End-to-end solutions from concept to deployment."
       />
 
-      <section className="py-8 sm:py-16" style={{ background: "var(--nv-bg-page)" }}>
-        <div className="mx-auto max-w-7xl px-6">
+      <section className="py-6 sm:py-12 md:py-16" style={{ background: "var(--nv-bg-page)" }}>
+        <div className="mx-auto max-w-7xl px-4 md:px-6">
           {SERVICES.map((service, i) => (
             <div key={service.id}>
               <ServiceBlock

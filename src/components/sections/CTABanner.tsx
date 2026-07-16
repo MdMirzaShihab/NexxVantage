@@ -21,16 +21,16 @@ export default function CTABanner({
 }: CTABannerProps) {
   return (
     <section
-      className="relative overflow-hidden py-24 sm:py-32"
+      className="relative overflow-hidden py-12 sm:py-24 md:py-32"
       style={{ background: "var(--nv-cta-bg)" }}
     >
       {/* Subtle gold glow effect */}
       <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[400px] w-[600px] rounded-full blur-3xl"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[200px] w-[300px] md:h-[400px] md:w-[600px] rounded-full blur-3xl"
         style={{ background: "var(--nv-gold-bg-subtle)" }}
       />
 
-      <AnimatedSection className="relative z-10 mx-auto max-w-4xl px-6 text-center">
+      <AnimatedSection className="relative z-10 mx-auto max-w-4xl px-4 md:px-6 text-center">
         <p className="nv-overline mb-4">Get Started</p>
         <h2
           className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl font-display"

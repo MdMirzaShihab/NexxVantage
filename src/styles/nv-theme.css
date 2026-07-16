@@ -435,10 +435,13 @@ hr {
 }
 
 .nv-lead {
-  font-size: var(--nv-text-xl);
+  font-size: var(--nv-text-base);
   line-height: 1.5;
   color: var(--nv-text-secondary);
   max-width: var(--nv-max-content);
+}
+@media (min-width: 640px) {
+  .nv-lead { font-size: var(--nv-text-xl); }
 }
 
 
@@ -592,7 +595,7 @@ hr {
 /* ── NAVIGATION — Embossed 3D Board ── */
 /* The board itself — a raised panel that sits on the page surface */
 .nv-nav-board {
-  padding: 0.75rem 1.25rem;
+  padding: 0.5rem 0.75rem;
   background: var(--nv-nav-bg);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -602,15 +605,21 @@ hr {
   transition: box-shadow var(--nv-duration-slow) var(--nv-ease),
               background var(--nv-duration-slow) var(--nv-ease);
 }
+@media (min-width: 768px) {
+  .nv-nav-board { padding: 0.75rem 1.25rem; }
+}
 
 /* Logo container — slightly raised from the board */
 .nv-nav-embossed-logo {
-  padding: 0.25rem 0.5rem;
+  padding: 0.15rem 0.35rem;
   border-radius: var(--nv-radius-md);
   box-shadow: var(--nv-neu-shadow-sm);
   background: var(--nv-bg-page);
   border: 1px solid var(--nv-border-default);
   transition: all var(--nv-duration) var(--nv-ease);
+}
+@media (min-width: 768px) {
+  .nv-nav-embossed-logo { padding: 0.25rem 0.5rem; }
 }
 .nv-nav-embossed-logo:hover {
   box-shadow: var(--nv-neu-gold-glow);
@@ -649,8 +658,9 @@ hr {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2.25rem;
+  height: 2.25rem;
+  color: var(--nv-text-primary);
   border: 1px solid var(--nv-border-default);
   border-radius: var(--nv-radius-md);
   background: var(--nv-bg-page);
@@ -664,6 +674,43 @@ hr {
 .nv-nav-embossed-hamburger:active {
   box-shadow: var(--nv-neu-inset-sm);
   transform: translateY(0);
+}
+
+/* ── MOBILE DRAWER ── */
+.nv-drawer-backdrop {
+  position: absolute;
+  inset: 0;
+  background: var(--nv-bg-overlay);
+  backdrop-filter: blur(4px);
+  animation: nv-fade-in 0.2s ease forwards;
+}
+.nv-drawer-panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(80vw, 320px);
+  background: var(--nv-bg-page);
+  border-left: 1px solid var(--nv-border-default);
+  box-shadow: var(--nv-neu-shadow-lg);
+  animation: nv-slide-in-right 0.25s ease forwards;
+  overflow-y: auto;
+}
+.nv-drawer-panel .nv-nav-embossed-link {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 0.65rem 1rem;
+  font-size: var(--nv-text-base);
+}
+
+@keyframes nv-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes nv-slide-in-right {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
 }
 
 /* Legacy .nv-nav-link kept for any other usage */
@@ -719,14 +766,13 @@ hr {
 .nv-hero {
   background: var(--nv-hero-bg);
   color: var(--nv-hero-text);
-  padding: 6rem 1.5rem;
   position: relative;
   overflow: hidden;
 }
-.nv-hero h1 { color: var(--nv-hero-heading); font-size: var(--nv-text-6xl); }
+.nv-hero h1 { color: var(--nv-hero-heading); }
 .nv-hero .nv-lead { color: var(--nv-hero-muted); }
 
-.nv-section-alt { background: var(--nv-section-alt-bg); padding: 5rem 1.5rem; }
+.nv-section-alt { background: var(--nv-section-alt-bg); }
 
 .nv-divider { width: 100%; height: 1px; background: var(--nv-gold-500); border: none; margin: 0; }
 .nv-divider-short { width: 4rem; height: 2px; background: var(--nv-gold-500); border: none; }
@@ -737,7 +783,6 @@ hr {
 .nv-footer {
   background: var(--nv-footer-bg);
   color: var(--nv-footer-text);
-  padding: 3rem 1.5rem;
   font-size: var(--nv-text-sm);
 }
 .nv-footer a { color: var(--nv-footer-link); text-decoration: none; }
@@ -797,17 +842,21 @@ hr {
 
 /* ── THEME TOGGLE (Neumorphic) ── */
 .nv-theme-toggle {
-  display: inline-flex; align-items: center; gap: 0.35rem;
-  padding: 0.3rem; background: var(--nv-bg-page);
+  display: inline-flex; align-items: center; gap: 0.2rem;
+  padding: 0.2rem; background: var(--nv-bg-page);
   border-radius: var(--nv-radius-pill);
   box-shadow: var(--nv-neu-inset-sm);
   border: none;
 }
 .nv-theme-toggle button {
-  padding: 0.4rem 0.75rem; border: none; border-radius: var(--nv-radius-pill);
+  padding: 0.3rem 0.5rem; border: none; border-radius: var(--nv-radius-pill);
   font-family: var(--nv-font-display); font-size: var(--nv-text-xs); font-weight: 600;
   cursor: pointer; transition: all var(--nv-duration) var(--nv-ease);
   background: transparent; color: var(--nv-text-muted);
+}
+@media (min-width: 768px) {
+  .nv-theme-toggle { gap: 0.35rem; padding: 0.3rem; }
+  .nv-theme-toggle button { padding: 0.4rem 0.75rem; }
 }
 .nv-theme-toggle button.active {
   background: var(--nv-gold-500); color: var(--nv-midnight-500);

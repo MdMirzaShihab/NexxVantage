@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Logo from "@/components/ui/Logo";
@@ -48,12 +48,23 @@ function ThemeToggle() {
 }
 
 /* Embossed nav link — raised from the surface like a physical control */
-function NavLink({ href, label, isActive }: { href: string; label: string; isActive: boolean }) {
+function NavLink({
+  href,
+  label,
+  isActive,
+  onClick,
+}: {
+  href: string;
+  label: string;
+  isActive: boolean;
+  onClick?: () => void;
+}) {
   return (
     <Link
       href={href}
       className="nv-nav-embossed-link"
       data-active={isActive || undefined}
+      onClick={onClick}
     >
       {label}
     </Link>
@@ -62,9 +73,37 @@ function NavLink({ href, label, isActive }: { href: string; label: string; isAct
 
 export default function Navbar() {
   const pathname = usePathname();
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+
+  const closeMobile = useCallback(() => setMobileOpen(false), []);
+
+  // Close drawer on route change
+  useEffect(() => {
+    closeMobile();
+  }, [pathname, closeMobile]);
+
+  // Lock body scroll when drawer is open
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
+
+  // Focus the close button when drawer opens
+  useEffect(() => {
+    if (mobileOpen && closeButtonRef.current) {
+      closeButtonRef.current.focus();
+    }
+  }, [mobileOpen]);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 pt-4 px-6">
+    <header className="fixed top-0 left-0 right-0 z-50 pt-2 px-3 md:pt-4 md:px-6">
       <nav
         className="nv-nav-board mx-auto flex max-w-7xl items-center justify-between"
       >
@@ -73,8 +112,8 @@ export default function Navbar() {
           <Logo />
         </div>
 
-        {/* Nav links — embossed controls */}
-        <div className="flex items-center gap-2">
+        {/* Desktop nav links — hidden on mobile */}
+        <div className="hidden md:flex items-center gap-2">
           {NAV_LINKS.map((link) => (
             <NavLink
               key={link.href}
@@ -94,7 +133,89 @@ export default function Navbar() {
             </Button>
           </div>
         </div>
+
+        {/* Mobile controls */}
+        <div className="flex items-center gap-2 md:hidden">
+          <ThemeToggle />
+          <button
+            type="button"
+            className="nv-nav-embossed-hamburger"
+            onClick={() => setMobileOpen(true)}
+            aria-label="Open menu"
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-drawer"
+          >
+            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+          </button>
+        </div>
       </nav>
+
+      {/* Mobile drawer */}
+      {mobileOpen && (
+        <div
+          className="fixed inset-0 z-[60] md:hidden"
+          onKeyDown={(e) => e.key === "Escape" && closeMobile()}
+        >
+          {/* Backdrop */}
+          <div
+            className="nv-drawer-backdrop"
+            onClick={closeMobile}
+            aria-hidden="true"
+          />
+
+          {/* Drawer panel */}
+          <div
+            id="mobile-drawer"
+            className="nv-drawer-panel"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Navigation menu"
+          >
+            {/* Drawer header */}
+            <div className="flex items-center justify-between p-6">
+              <div className="nv-nav-embossed-logo">
+                <Logo />
+              </div>
+              <button
+                ref={closeButtonRef}
+                type="button"
+                className="nv-nav-embossed-hamburger"
+                onClick={closeMobile}
+                aria-label="Close menu"
+              >
+                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Drawer nav links */}
+            <div className="flex flex-col gap-3 px-6 py-4">
+              {NAV_LINKS.map((link) => (
+                <NavLink
+                  key={link.href}
+                  href={link.href}
+                  label={link.label}
+                  isActive={pathname === link.href}
+                  onClick={closeMobile}
+                />
+              ))}
+            </div>
+
+            {/* Drawer divider */}
+            <div className="mx-6 my-4 h-px" style={{ background: "var(--nv-border-default)" }} />
+
+            {/* Drawer CTA */}
+            <div className="px-6">
+              <Button href={SITE_CONFIG.bookingUrl} className="w-full text-center">
+                Book a Consultation
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </header>
   );
 }

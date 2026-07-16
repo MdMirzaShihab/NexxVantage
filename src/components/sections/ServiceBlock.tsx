@@ -22,7 +22,7 @@ export default function ServiceBlock({
   return (
     <AnimatedSection>
       <div
-        className={`flex flex-col gap-12 py-16 lg:flex-row lg:items-center lg:gap-20 ${
+        className={`flex flex-col gap-6 py-10 md:gap-12 md:py-16 lg:flex-row lg:items-center lg:gap-20 ${
           reversed ? "lg:flex-row-reverse" : ""
         }`}
       >
@@ -55,9 +55,9 @@ export default function ServiceBlock({
           </ul>
         </div>
 
-        {/* Visual placeholder */}
-        <div className="flex-1">
-          <div className="nv-card nv-card-inset relative aspect-square max-w-md mx-auto overflow-hidden">
+        {/* Visual placeholder — hidden on small screens */}
+        <div className="hidden md:block flex-1">
+          <div className="nv-card nv-card-inset relative aspect-video md:aspect-square max-w-md mx-auto overflow-hidden">
             <div className="absolute inset-0 flex items-center justify-center">
               <ServiceIcon icon={icon} className="h-24 w-24 opacity-20" />
             </div>
