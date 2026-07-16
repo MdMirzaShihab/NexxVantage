@@ -39,15 +39,8 @@ export default function MarkCanvas({ t, idle = false, className, onReady }: Mark
       aria-hidden="true"
     >
       {visible || mounted ? (
-        <ReadyProbe onMount={() => setMounted(true)}>
-          <MarkScene t={t} idle={idle} active={visible} />
-        </ReadyProbe>
+        <MarkScene t={t} idle={idle} active={visible} onCreated={() => setMounted(true)} />
       ) : null}
     </div>
   );
-}
-
-function ReadyProbe({ children, onMount }: { children: React.ReactNode; onMount: () => void }) {
-  useEffect(() => { onMount(); }, [onMount]);
-  return <>{children}</>;
 }

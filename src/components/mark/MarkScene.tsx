@@ -93,7 +93,17 @@ function Mark({ t, idle }: { t: MotionValue<number>; idle: boolean }) {
   );
 }
 
-export default function MarkScene({ t, idle, active }: { t: MotionValue<number>; idle: boolean; active: boolean }) {
+export default function MarkScene({
+  t,
+  idle,
+  active,
+  onCreated,
+}: {
+  t: MotionValue<number>;
+  idle: boolean;
+  active: boolean;
+  onCreated?: () => void;
+}) {
   return (
     <Canvas
       dpr={[1, 2]}
@@ -101,6 +111,7 @@ export default function MarkScene({ t, idle, active }: { t: MotionValue<number>;
       camera={{ position: [0, 0, 6], fov: 40 }}
       gl={{ antialias: true, alpha: true }}
       style={{ background: "transparent" }}
+      onCreated={onCreated}
     >
       <ambientLight intensity={0.18} />
       <directionalLight position={[3, 4, 5]} intensity={2.2} color="#F2E2AE" />
