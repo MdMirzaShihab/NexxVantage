@@ -925,6 +925,10 @@ hr {
   --nv-hero-heading: var(--nv-white);
   --nv-hero-muted: rgba(255, 255, 255, 0.6);
   --nv-hero-accent: var(--nv-gold-400);
+  --nv-hero-bg: var(--nv-midnight-500);
+  --nv-hero-text: var(--nv-white);
+  --nv-cta-bg: var(--nv-midnight-600);
+  --nv-cta-text: var(--nv-white);
   --nv-neu-shadow:
     6px 6px 14px rgba(3, 6, 9, 0.6),
     -6px -6px 14px rgba(26, 51, 82, 0.25);
