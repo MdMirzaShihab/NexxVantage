@@ -163,6 +163,16 @@ export const AGENCY_OFFER = {
   ],
 } as const;
 
+export const SERVICES_PAGE = {
+  overline: "Services",
+  heading: "Two crafts. One standard.",
+  cta: {
+    heading: "Not sure which door to knock on?",
+    sub: "Start with the conversation. We will point you at the right craft.",
+    button: "Book a consultation",
+  },
+} as const;
+
 export const WHY_POINTS = [
   {
     title: "Senior hands only",
