@@ -40,6 +40,8 @@ export const HOME = {
     overline: "Selected Work",
     heading: "A short walk through the gallery",
     link: { label: "View all work", href: "/work" },
+    clientLabel: "Client",
+    readCase: "Read the case",
   },
   method: {
     overline: "The NexxVantage Method",

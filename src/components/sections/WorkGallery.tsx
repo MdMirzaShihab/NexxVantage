@@ -13,7 +13,7 @@ const GAP = 420; // z-distance between panels (px)
 function PanelContent({ cs }: { cs: CaseStudy }) {
   return (
     <SheenPanel className="nv-card nv-card-elevated flex h-full flex-col overflow-hidden p-6">
-      <p className="nv-overline">{`Client · ${cs.sector}`}</p>
+      <p className="nv-overline">{`${HOME.work.clientLabel} · ${cs.sector}`}</p>
       <h3 className="mt-2 font-display text-xl font-bold">{cs.title}</h3>
       <div className="relative mt-4 flex-1 overflow-hidden rounded-lg" style={{ minHeight: 160 }}>
         <Image src={cs.cover.src} alt={cs.cover.alt} fill className="object-cover" sizes="(max-width: 768px) 80vw, 480px" />
@@ -22,7 +22,7 @@ function PanelContent({ cs }: { cs: CaseStudy }) {
         <span className="font-semibold text-gold">{cs.outcomes[0].value}</span> {cs.outcomes[0].label}
       </p>
       <Link href={`/work/${cs.slug}`} className="mt-3 font-display text-sm font-semibold">
-        Read the case →
+        {HOME.work.readCase} →
       </Link>
     </SheenPanel>
   );
