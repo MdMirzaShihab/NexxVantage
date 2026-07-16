@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Button from "@/components/ui/Button";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import PhaseDiagram from "@/components/sections/PhaseDiagram";
+import JsonLd from "@/components/seo/JsonLd";
 import { METHOD_PHASES, METHOD_PAGE, METHOD_FAQ } from "@/lib/method";
 
 export const metadata: Metadata = {
@@ -12,7 +13,18 @@ export const metadata: Metadata = {
 
 export default function MethodPage() {
   return (
-    <main className="mx-auto max-w-7xl px-4 py-24 md:px-6 md:py-32">
+    <div className="mx-auto max-w-7xl px-4 py-24 md:px-6 md:py-32">
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: METHOD_FAQ.map((f) => ({
+            "@type": "Question",
+            name: f.q,
+            acceptedAnswer: { "@type": "Answer", text: f.a },
+          })),
+        }}
+      />
       <AnimatedSection>
         <p className="nv-overline mb-3">{METHOD_PAGE.hero.overline}</p>
         <h1 className="font-display text-4xl font-bold md:text-5xl">{METHOD_PAGE.hero.heading}</h1>
@@ -74,6 +86,6 @@ export default function MethodPage() {
         <p className="nv-lead mx-auto mt-3">{METHOD_PAGE.cta.sub}</p>
         <div className="mt-6"><Button href="/contact">{METHOD_PAGE.cta.button}</Button></div>
       </section>
-    </main>
+    </div>
   );
 }

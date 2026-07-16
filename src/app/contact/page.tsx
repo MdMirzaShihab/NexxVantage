@@ -4,14 +4,14 @@ import ContactForm from "@/components/sections/ContactForm";
 import { CONTACT } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "Contact",
+  title: "Contact — NexxVantage",
   description:
     "Get in touch with NexxVantage. Tell us about your project or book a consultation.",
 };
 
 export default function ContactPage() {
   return (
-    <main className="mx-auto max-w-7xl px-4 py-24 md:px-6 md:py-32">
+    <div className="mx-auto max-w-7xl px-4 py-24 md:px-6 md:py-32">
       <AnimatedSection>
         <p className="nv-overline mb-3">{CONTACT.overline}</p>
         <h1 className="font-display text-4xl font-bold md:text-5xl">{CONTACT.headline}</h1>
@@ -39,6 +39,6 @@ export default function ContactPage() {
           </ol>
         </aside>
       </div>
-    </main>
+    </div>
   );
 }

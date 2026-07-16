@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import Button from "@/components/ui/Button";
+import JsonLd from "@/components/seo/JsonLd";
 import { PILLARS, AGENCY_OFFER, SERVICES_PAGE } from "@/lib/constants";
 
 export const metadata: Metadata = {
@@ -11,7 +12,20 @@ export const metadata: Metadata = {
 
 export default function ServicesPage() {
   return (
-    <main className="mx-auto max-w-7xl px-4 py-24 md:px-6 md:py-32">
+    <div className="mx-auto max-w-7xl px-4 py-24 md:px-6 md:py-32">
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@graph": PILLARS.flatMap((p) =>
+            p.services.map((s) => ({
+              "@type": "Service",
+              name: s.title,
+              description: s.description,
+              provider: { "@type": "Organization", name: "NexxVantage" },
+            }))
+          ),
+        }}
+      />
       <AnimatedSection>
         <p className="nv-overline mb-3">{SERVICES_PAGE.overline}</p>
         <h1 className="font-display text-4xl font-bold md:text-5xl">{SERVICES_PAGE.heading}</h1>
@@ -66,6 +80,6 @@ export default function ServicesPage() {
         <p className="nv-lead mx-auto mt-3">{SERVICES_PAGE.cta.sub}</p>
         <div className="mt-6"><Button href="/contact">{SERVICES_PAGE.cta.button}</Button></div>
       </section>
-    </main>
+    </div>
   );
 }

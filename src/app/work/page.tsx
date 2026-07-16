@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 export default function WorkPage() {
   return (
-    <main className="mx-auto max-w-7xl px-4 py-24 md:px-6 md:py-32">
+    <div className="mx-auto max-w-7xl px-4 py-24 md:px-6 md:py-32">
       <AnimatedSection>
         <p className="nv-overline mb-3">{WORK_PAGE.overline}</p>
         <h1 className="font-display text-4xl font-bold md:text-5xl">{WORK_PAGE.heading}</h1>
@@ -42,6 +42,6 @@ export default function WorkPage() {
           </AnimatedSection>
         ))}
       </div>
-    </main>
+    </div>
   );
 }

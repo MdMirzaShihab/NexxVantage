@@ -3,7 +3,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Button from "@/components/ui/Button";
+import JsonLd from "@/components/seo/JsonLd";
 import { CASE_STUDIES, getCaseStudy, WORK_PAGE } from "@/lib/work";
+import { SITE_CONFIG } from "@/lib/constants";
 
 export function generateStaticParams() {
   return CASE_STUDIES.map((c) => ({ slug: c.slug }));
@@ -20,7 +22,27 @@ export default function CaseStudyPage({ params }: { params: { slug: string } }) 
   if (!cs) notFound();
 
   return (
-    <main className="mx-auto max-w-4xl px-4 py-24 md:px-6 md:py-32">
+    <div className="mx-auto max-w-4xl px-4 py-24 md:px-6 md:py-32">
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "CreativeWork",
+          name: cs.title,
+          about: cs.summary,
+          creator: { "@type": "Organization", name: "NexxVantage" },
+        }}
+      />
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: SITE_CONFIG.url },
+            { "@type": "ListItem", position: 2, name: "Work", item: `${SITE_CONFIG.url}/work` },
+            { "@type": "ListItem", position: 3, name: cs.title, item: `${SITE_CONFIG.url}/work/${cs.slug}` },
+          ],
+        }}
+      />
       <nav aria-label="Breadcrumb" className="mb-8 text-sm text-muted">
         <Link href="/work">{WORK_PAGE.breadcrumbLabel}</Link> <span aria-hidden="true">/</span> {cs.title}
       </nav>
@@ -67,6 +89,6 @@ export default function CaseStudyPage({ params }: { params: { slug: string } }) 
         <p className="nv-lead mx-auto mt-3">{WORK_PAGE.cta.sub}</p>
         <div className="mt-6"><Button href="/contact">{WORK_PAGE.cta.button}</Button></div>
       </section>
-    </main>
+    </div>
   );
 }
