@@ -225,8 +225,10 @@ export const SERVICE_OPTIONS = [
 ] as const;
 
 export const CONTACT = {
+  overline: "Contact",
   headline: "Begin with a conversation.",
   sub: "Tell us what you're building and what problem it solves. A senior partner will take it from there.",
+  stepsHeading: "What happens next",
   steps: [
     {
       title: "A senior partner replies within 24 hours",

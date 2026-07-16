@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Button from "@/components/ui/Button";
 import { Input, Textarea, Select } from "@/components/ui/FormFields";
-import { SERVICE_OPTIONS, BUDGET_OPTIONS } from "@/lib/constants";
+import { SERVICE_OPTIONS, BUDGET_OPTIONS, TIMELINE_OPTIONS } from "@/lib/constants";
 
 export default function ContactForm() {
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
@@ -42,7 +42,7 @@ export default function ContactForm() {
           </svg>
         </div>
         <h3 className="text-xl font-bold font-display" style={{ color: "var(--nv-text-heading)" }}>
-          Message Sent!
+          Message sent
         </h3>
         <p className="mt-2" style={{ color: "var(--nv-text-secondary)" }}>
           Thanks for reaching out. We&apos;ll get back to you within 24 hours.
@@ -69,11 +69,13 @@ export default function ContactForm() {
 
       <div className="grid gap-6 sm:grid-cols-2">
         <Select label="Service" id="service" name="service" options={SERVICE_OPTIONS} />
-        <Select label="Budget Range" id="budget" name="budget" options={BUDGET_OPTIONS} />
+        <Select label="Budget range" id="budget" name="budget" options={BUDGET_OPTIONS} />
       </div>
 
+      <Select label="Timeline" id="timeline" name="timeline" options={TIMELINE_OPTIONS} />
+
       <Textarea
-        label="Project Brief"
+        label="Project brief"
         id="message"
         name="message"
         placeholder="Tell us about your project..."
@@ -87,7 +89,7 @@ export default function ContactForm() {
       )}
 
       <Button type="submit" className="w-full" disabled={status === "sending"}>
-        {status === "sending" ? "Sending..." : "Start Your Project"}
+        {status === "sending" ? "Sending…" : "Send message"}
       </Button>
     </form>
   );
