@@ -76,6 +76,8 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
 
+  const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
+
   const closeMobile = useCallback(() => setMobileOpen(false), []);
 
   // Close drawer on route change
@@ -119,7 +121,7 @@ export default function Navbar() {
               key={link.href}
               href={link.href}
               label={link.label}
-              isActive={pathname === link.href}
+              isActive={isActive(link.href)}
             />
           ))}
 
@@ -129,7 +131,7 @@ export default function Navbar() {
 
           <div className="ml-2">
             <Button href={SITE_CONFIG.bookingUrl} className="text-xs px-4 py-2">
-              Book a Consultation
+              Book a consultation
             </Button>
           </div>
         </div>
@@ -198,7 +200,7 @@ export default function Navbar() {
                   key={link.href}
                   href={link.href}
                   label={link.label}
-                  isActive={pathname === link.href}
+                  isActive={isActive(link.href)}
                   onClick={closeMobile}
                 />
               ))}
@@ -210,7 +212,7 @@ export default function Navbar() {
             {/* Drawer CTA */}
             <div className="px-6">
               <Button href={SITE_CONFIG.bookingUrl} className="w-full text-center">
-                Book a Consultation
+                Book a consultation
               </Button>
             </div>
           </div>

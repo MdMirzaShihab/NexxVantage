@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Logo from "@/components/ui/Logo";
-import { NAV_LINKS, SITE_CONFIG } from "@/lib/constants";
+import { NAV_LINKS, SITE_CONFIG, PILLARS, AGENCY_OFFER } from "@/lib/constants";
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -12,13 +12,14 @@ export default function Footer() {
 
       <footer className="nv-footer">
         <div className="mx-auto max-w-7xl px-4 md:px-6 py-12 md:py-16">
-          <div className="grid gap-8 md:gap-12 md:grid-cols-3">
+          <div className="grid gap-8 md:gap-12 sm:grid-cols-2 lg:grid-cols-4">
             {/* Logo & tagline */}
             <div>
               <Logo />
               <p className="mt-4 text-sm max-w-xs footer-text">
                 {SITE_CONFIG.tagline}
               </p>
+              <p className="mt-2 text-sm footer-text">Dhaka · Working worldwide</p>
             </div>
 
             {/* Nav links */}
@@ -40,6 +41,29 @@ export default function Footer() {
               </ul>
             </div>
 
+            {/* Services links */}
+            <div>
+              <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider font-display footer-heading">
+                Services
+              </h4>
+              <ul className="flex flex-col gap-3">
+                {PILLARS.map((p) =>
+                  p.services.map((s) => (
+                    <li key={s.id}>
+                      <Link href={`/services#${s.id}`} className="text-sm footer-link">
+                        {s.title}
+                      </Link>
+                    </li>
+                  ))
+                )}
+                <li>
+                  <Link href="/services#agencies" className="text-sm footer-link">
+                    {AGENCY_OFFER.title}
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
             {/* Contact & social */}
             <div>
               <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider font-display footer-heading">
@@ -54,7 +78,6 @@ export default function Footer() {
                     {SITE_CONFIG.email}
                   </a>
                 </li>
-                <li className="text-sm footer-text">{SITE_CONFIG.location}</li>
               </ul>
               <div className="mt-6 flex gap-4">
                 <a
