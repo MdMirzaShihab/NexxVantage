@@ -77,3 +77,20 @@ export const CASE_STUDIES: CaseStudy[] = [
 export function getCaseStudy(slug: string): CaseStudy | undefined {
   return CASE_STUDIES.find((c) => c.slug === slug);
 }
+
+export const WORK_PAGE = {
+  overline: "Selected Work",
+  heading: "Few projects. Full courses.",
+  intro:
+    "We take on a small number of engagements and give each one everything. Here is what that looks like when it ships.",
+  breadcrumbLabel: "Work",
+  brief: { engagement: "Engagement", timeline: "Timeline", sector: "Sector" },
+  problemHeading: "The problem, in the client's words",
+  firstBuildHeading: "What we built first, and why",
+  outcomeHeading: "The outcome",
+  cta: {
+    heading: "Your sector next",
+    sub: "Every engagement starts with a conversation, not a quote.",
+    button: "Book a consultation",
+  },
+} as const;
