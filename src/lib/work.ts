@@ -23,14 +23,14 @@ export const CASE_STUDIES: CaseStudy[] = [
     summary:
       "Direct-booking platform designed to carry the brand's in-person warmth online — and stop paying a third of revenue to OTA commissions.",
     problemQuote:
-      "Guests loved us in person, but our website felt like a budget airline. Most bookings went through agencies that took a third of the revenue.", // PLACEHOLDER
+      "Guests loved us in person, but our website felt like a budget airline. Most bookings went through agencies that took a third of the revenue.", // PLACEHOLDER — replace with real client data before launch
     firstBuild:
       "Phase one was the booking flow alone — not the marketing site. The consultation showed commission leakage was the bleeding wound, so the MVP put a beautiful, brand-true direct booking path live in six weeks. The full site followed in phase two.",
     outcomes: [
-      { value: "+38%", label: "direct bookings in the first quarter" }, // PLACEHOLDER
-      { value: "6 weeks", label: "from consultation to live MVP" }, // PLACEHOLDER
+      { value: "+38%", label: "direct bookings in the first quarter" }, // PLACEHOLDER — replace with real client data before launch
+      { value: "6 weeks", label: "from consultation to live MVP" }, // PLACEHOLDER — replace with real client data before launch
     ],
-    timeline: "6 weeks to MVP, 4 months total", // PLACEHOLDER
+    timeline: "6 weeks to MVP, 4 months total", // PLACEHOLDER — replace with real client data before launch
     engagement: "The Studio + Engineering House",
     cover: { src: "/work/hospitality-cover.webp", alt: "Booking platform interface over a midnight background" },
   },
@@ -42,14 +42,14 @@ export const CASE_STUDIES: CaseStudy[] = [
     summary:
       "Case management, billing, and financial reporting unified in one system — with business logic designed by accounting professionals.",
     problemQuote:
-      "Month-end close took nine days and three spreadsheets. Nobody trusted the numbers until the senior partner re-checked them by hand.", // PLACEHOLDER
+      "Month-end close took nine days and three spreadsheets. Nobody trusted the numbers until the senior partner re-checked them by hand.", // PLACEHOLDER — replace with real client data before launch
     firstBuild:
       "Phase one replaced the billing and time-capture spreadsheets — the direct revenue path — while case management stayed in the old tools. Only after the numbers earned trust did phases two and three absorb cases and documents.",
     outcomes: [
-      { value: "9 days → 2", label: "month-end close" }, // PLACEHOLDER
-      { value: "100%", label: "of invoices reconciled without manual re-checks" }, // PLACEHOLDER
+      { value: "9 days → 2", label: "month-end close" }, // PLACEHOLDER — replace with real client data before launch
+      { value: "100%", label: "of invoices reconciled without manual re-checks" }, // PLACEHOLDER — replace with real client data before launch
     ],
-    timeline: "8 weeks to MVP, 7 months total", // PLACEHOLDER
+    timeline: "8 weeks to MVP, 7 months total", // PLACEHOLDER — replace with real client data before launch
     engagement: "The Engineering House",
     cover: { src: "/work/legal-erp-cover.webp", alt: "ERP dashboard showing billing and case views" },
   },
@@ -61,14 +61,14 @@ export const CASE_STUDIES: CaseStudy[] = [
     summary:
       "A brand-first flagship website where every scroll, hover, and headline was tailored to the label's identity.",
     problemQuote:
-      "Our products are premium. Our website looked like everyone else's Shopify theme. Customers noticed.", // PLACEHOLDER
+      "Our products are premium. Our website looked like everyone else's Shopify theme. Customers noticed.", // PLACEHOLDER — replace with real client data before launch
     firstBuild:
       "The consultation ranked brand perception above catalogue size, so phase one shipped the brand experience — home, story, and hero products — while the long-tail catalogue followed in phase two.",
     outcomes: [
-      { value: "×2.4", label: "session duration" }, // PLACEHOLDER
-      { value: "+61%", label: "returning visitors" }, // PLACEHOLDER
+      { value: "×2.4", label: "session duration" }, // PLACEHOLDER — replace with real client data before launch
+      { value: "+61%", label: "returning visitors" }, // PLACEHOLDER — replace with real client data before launch
     ],
-    timeline: "5 weeks to launch, 3 months total", // PLACEHOLDER
+    timeline: "5 weeks to launch, 3 months total", // PLACEHOLDER — replace with real client data before launch
     engagement: "The Studio",
     cover: { src: "/work/retail-cover.webp", alt: "Flagship retail site hero with gold typography" },
   },
