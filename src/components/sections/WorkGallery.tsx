@@ -3,9 +3,10 @@
 import { useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from "motion/react";
+import { motion, useScroll, useTransform, type MotionValue } from "motion/react";
 import SheenPanel from "@/components/ui/SheenPanel";
 import { CASE_STUDIES, type CaseStudy } from "@/lib/work";
+import { useReducedMotionSafe } from "@/lib/useReducedMotionSafe";
 import { HOME } from "@/lib/constants";
 
 const GAP = 420; // z-distance between panels (px)
@@ -46,7 +47,7 @@ function DollyPanel({ cs, index, cam }: { cs: CaseStudy; index: number; cam: Mot
 
 export default function WorkGallery() {
   const ref = useRef<HTMLDivElement>(null);
-  const reduced = useReducedMotion();
+  const reduced = useReducedMotionSafe();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
   const cam = useTransform(scrollYProgress, [0.05, 0.95], [0, GAP * (CASE_STUDIES.length - 1)]);
 

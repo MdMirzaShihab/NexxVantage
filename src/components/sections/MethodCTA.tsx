@@ -2,11 +2,12 @@
 
 import { useRef } from "react";
 import Link from "next/link";
-import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from "motion/react";
+import { motion, useScroll, useTransform, type MotionValue } from "motion/react";
 import Button from "@/components/ui/Button";
 import MarkCanvas from "@/components/mark/MarkCanvas";
 import MarkStatic from "@/components/mark/MarkStatic";
 import { useCan3D } from "@/lib/useCan3D";
+import { useReducedMotionSafe } from "@/lib/useReducedMotionSafe";
 import { METHOD_PHASES } from "@/lib/method";
 import { HOME } from "@/lib/constants";
 
@@ -29,7 +30,7 @@ function PhaseRow({ phase, index, progress }: {
 export default function MethodCTA() {
   const ref = useRef<HTMLDivElement>(null);
   const can3D = useCan3D();
-  const reduced = useReducedMotion();
+  const reduced = useReducedMotionSafe();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
   const t = useTransform(scrollYProgress, [0, 0.5, 0.75, 1], [0, 1, 1, 0]);
   const ctaOpacity = useTransform(scrollYProgress, [0.72, 0.85], [0, 1]);

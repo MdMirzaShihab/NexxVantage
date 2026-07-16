@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useMotionValue, useReducedMotion } from "motion/react";
+import { motion, useMotionValue } from "motion/react";
 import { useState } from "react";
 import Button from "@/components/ui/Button";
 import MarkStatic from "@/components/mark/MarkStatic";
@@ -8,6 +8,12 @@ import MarkCanvas from "@/components/mark/MarkCanvas";
 import { useCan3D } from "@/lib/useCan3D";
 import { HOME } from "@/lib/constants";
 
+// `y` movement is auto-stripped for reduced-motion users by the site-wide
+// <MotionConfig reducedMotion="user"> (see MotionProvider), which keeps only
+// the opacity fade — so this stays a single, unconditional prop set. Do NOT
+// reintroduce a `reduced ? {} : rise(delay)` branch here: removing the whole
+// initial/animate pair from an already-mounted motion element after a
+// post-hydration state flip can leave it stuck at `opacity: 0`.
 const rise = (delay: number) => ({
   initial: { opacity: 0, y: 24 },
   animate: { opacity: 1, y: 0 },
@@ -16,7 +22,6 @@ const rise = (delay: number) => ({
 
 export default function HeroMovement() {
   const can3D = useCan3D();
-  const reduced = useReducedMotion();
   const [canvasReady, setCanvasReady] = useState(false);
   const t = useMotionValue(0); // hero mark stays assembled
 
@@ -32,21 +37,21 @@ export default function HeroMovement() {
       />
       <div className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-10 px-4 py-24 md:grid-cols-2 md:px-6 md:py-32">
         <div className="max-w-2xl">
-          <motion.p className="nv-overline mb-4" {...(reduced ? {} : rise(0))}>
+          <motion.p className="nv-overline mb-4" {...rise(0)}>
             {hero.overline}
           </motion.p>
           <motion.h1
             className="font-display text-[2.5rem] font-bold leading-[1.08] tracking-tight md:text-6xl lg:text-[var(--nv-text-display-lg)]"
             style={{ color: "var(--nv-hero-heading)" }}
-            {...(reduced ? {} : rise(0.08))}
+            {...rise(0.08)}
           >
             {hero.headlinePre}{" "}
             <span style={{ color: "var(--nv-hero-accent)" }}>{hero.headlineGold}</span>
           </motion.h1>
-          <motion.p className="nv-lead mt-6 max-w-xl" {...(reduced ? {} : rise(0.16))}>
+          <motion.p className="nv-lead mt-6 max-w-xl" {...rise(0.16)}>
             {hero.sub}
           </motion.p>
-          <motion.div className="mt-10 flex flex-col gap-4 sm:flex-row" {...(reduced ? {} : rise(0.24))}>
+          <motion.div className="mt-10 flex flex-col gap-4 sm:flex-row" {...rise(0.24)}>
             <Button href={hero.ctaPrimary.href}>{hero.ctaPrimary.label}</Button>
             <Button href={hero.ctaGhost.href} variant="ghost">{hero.ctaGhost.label}</Button>
           </motion.div>

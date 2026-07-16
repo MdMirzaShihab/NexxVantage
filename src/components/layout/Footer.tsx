@@ -24,9 +24,9 @@ export default function Footer() {
 
             {/* Nav links */}
             <div>
-              <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider font-display footer-heading">
+              <h2 className="mb-4 text-sm font-semibold uppercase tracking-wider font-display footer-heading">
                 Navigation
-              </h4>
+              </h2>
               <ul className="flex flex-col gap-3">
                 {NAV_LINKS.map((link) => (
                   <li key={link.href}>
@@ -43,9 +43,9 @@ export default function Footer() {
 
             {/* Services links */}
             <div>
-              <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider font-display footer-heading">
+              <h2 className="mb-4 text-sm font-semibold uppercase tracking-wider font-display footer-heading">
                 Services
-              </h4>
+              </h2>
               <ul className="flex flex-col gap-3">
                 {PILLARS.map((p) =>
                   p.services.map((s) => (
@@ -66,9 +66,9 @@ export default function Footer() {
 
             {/* Contact & social */}
             <div>
-              <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider font-display footer-heading">
+              <h2 className="mb-4 text-sm font-semibold uppercase tracking-wider font-display footer-heading">
                 Connect
-              </h4>
+              </h2>
               <ul className="flex flex-col gap-3">
                 <li>
                   <a

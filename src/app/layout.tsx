@@ -3,6 +3,7 @@ import { spaceGrotesk, inter, jetbrainsMono } from "@/lib/fonts";
 import { SITE_CONFIG } from "@/lib/constants";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import MotionProvider from "@/components/layout/MotionProvider";
 import JsonLd from "@/components/seo/JsonLd";
 import "./globals.css";
 import "@/styles/nv-theme.css";
@@ -48,6 +49,14 @@ export default function RootLayout({
             `,
           }}
         />
+        <noscript>
+          <style
+            dangerouslySetInnerHTML={{
+              __html:
+                '[style*="opacity:0"],[style*="opacity: 0"]{opacity:1!important}[style*="translate"]{transform:none!important}',
+            }}
+          />
+        </noscript>
       </head>
       <body
         className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable} antialiased`}
@@ -66,7 +75,9 @@ export default function RootLayout({
           }}
         />
         <Navbar />
-        <main id="main" className="min-h-screen">{children}</main>
+        <main id="main" className="min-h-screen">
+          <MotionProvider>{children}</MotionProvider>
+        </main>
         <Footer />
       </body>
     </html>
