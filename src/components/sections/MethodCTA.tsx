@@ -61,7 +61,7 @@ export default function MethodCTA() {
               {method.link.label} →
             </Link>
           </div>
-          <MarkStatic variant="exploded" className="mx-auto w-56 md:w-72" />
+          <MarkStatic variant="exploded" idPrefix="method" className="mx-auto w-56 md:w-72" />
         </div>
         <div className="mx-auto mt-24 max-w-3xl text-center">
           <p className="nv-overline mb-3">{cta.overline}</p>
@@ -82,7 +82,7 @@ export default function MethodCTA() {
             <MarkCanvas t={t} className="h-full w-full" />
           ) : (
             <div className="flex h-full items-center justify-center">
-              <MarkStatic variant="exploded" className="w-64" />
+              <MarkStatic variant="exploded" idPrefix="method" className="w-64" />
             </div>
           )}
         </div>
