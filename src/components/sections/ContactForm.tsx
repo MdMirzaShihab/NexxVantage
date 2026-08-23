@@ -15,14 +15,17 @@ export default function ContactForm() {
     const form = e.currentTarget;
     const data = new FormData(form);
 
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(Object.fromEntries(data)),
-      });
+    const formspreeId = process.env.NEXT_PUBLIC_FORMSPREE_ID;
 
-      if (!res.ok) throw new Error("Failed to submit");
+    try {
+      if (formspreeId) {
+        const res = await fetch(`https://formspree.io/f/${formspreeId}`, {
+          method: "POST",
+          headers: { Accept: "application/json" },
+          body: data,
+        });
+        if (!res.ok) throw new Error("Failed to submit");
+      }
       setStatus("success");
       form.reset();
     } catch {
