@@ -6,7 +6,7 @@
 
 **Architecture:** Pure frame/beat math lives in `src/lib/hero-film.ts` (unit-tested with `node --test`). `useFrameSequence` fetches AVIF/WebP frames coarse-to-fine; `FilmCanvas` draws the frame for the current scroll progress over an always-present poster `<img>`; `HeroFilm` owns the 450vh sticky section, the HTML text states per beat, the progress rail, and the static fallback. Two `sharp` scripts produce the frame sets from 1080² masters — the animatic script writes masters from parametric SVG, and the build script turns any masters (animatic or AI renders) into `public/hero-film/<theme>/{900,600}/`.
 
-**Tech Stack:** Next.js 14 (static export), React 18, `motion/react` v12 (`useScroll`, `useMotionValueEvent`), Tailwind 3, `sharp` (already installed), Node 25 (`node --test`, native TS type-stripping for tests and scripts).
+**Tech Stack:** Next.js 14 (static export), React 18, `motion/react` v12 (`useScroll`, `useMotionValueEvent`), Tailwind 3, `sharp` (devDependency — added for the frame scripts; the Aug 23 static-export commit had removed it), Node 25 (`node --test`, native TS type-stripping for tests and scripts).
 
 **Spec:** `docs/superpowers/specs/2026-07-23-hero-scrub-film-design.md`
 

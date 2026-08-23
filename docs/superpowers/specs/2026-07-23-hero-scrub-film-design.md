@@ -20,7 +20,7 @@ Owner decisions (all locked):
 | Themes | Dark film first. Light "white studio" sibling only if dark succeeds. Hero stays velvet-midnight in light mode until then (`.nv-velvet` already does this). |
 | Delivery | Image-sequence scrub on `<canvas>` (AVIF + WebP). Never `<video>` (seek jank, codec colour shift). |
 | Text | All captions, wordmark, closing line, CTAs are HTML beside the film. In-film text only on the brief card and the mark glyph — both composited in post, never generated. |
-| Production | Stills: Gemini (Nano Banana) / Draw Things. Hero clips: Kling 3.0 Pro on the Standard plan (commercial licence, 1080p, start+end frame). Low-stakes clips + variants: LTX-2 local on the M4 Pro. Post: DaVinci Resolve + ffmpeg. |
+| Production | Stills: Gemini (Nano Banana) / Draw Things. All 8 clips: Kling 3.0 Pro on the Standard plan (commercial licence, 1080p, start+end frame). Local video generation was evaluated and rejected (see runbook Appendix B). Post: DaVinci Resolve + ffmpeg. |
 
 ---
 
@@ -57,7 +57,7 @@ Brief-card sentence (in-film, post-composited, ≤ 7 words, owner may replace): 
 
 ## 4. The scrub engine
 
-**Assets** — `public/hero-film/dark/{900,600}/f-000.avif … f-143.avif` plus `.webp` siblings, and `poster.avif` (= f-143, S8). Mobile (`<768px`) loads the 600 set. Built by `scripts/hero-film/build.mjs` from `masters/*.png` (1080²) using the already-installed `sharp`.
+**Assets** — `public/hero-film/dark/{900,600}/f-000.avif … f-143.avif` plus `.webp` siblings, and `poster.avif` (= f-143, S8). Mobile (`<768px`) loads the 600 set. Built by `scripts/hero-film/build.mjs` from `masters/*.png` (1080²) using `sharp` (devDependency).
 
 **Component boundaries** (new files; `HeroMovement.tsx` is replaced):
 
@@ -94,11 +94,10 @@ Brief-card sentence (in-film, post-composited, ≤ 7 words, owner may replace): 
 |---|---|---|---|
 | 1 Reference pack | Gemini (Nano Banana) or Draw Things | 4–8 stills: device from 3 angles + bench/lighting, all 1:1 | $0 |
 | 2 Keyframes | same, **edit mode** (derive from approved stills, never regenerate fresh) | S0–S8, 1:1, ≥ 1024² | $0 — **approval gate before any video** |
-| 3 Bake-off | Kling 3.0 Pro vs LTX-2 local, beat 3 (machining), same S3→S4 | pick per-beat assignment | ≈ 40 credits |
-| 4 Clips | Kling Standard plan: beats 2–7 (hero takes, best of 3); LTX-2 local: beats 1 and 8 + variants | 8 clips, 1080p, 4–8 s, audio off | ≈ $7–16, cancel after |
-| 5 Post | DaVinci Resolve (free) | 144 PNG stills 1080² | $0 |
+| 3 Clips | Kling Standard plan: all 8 beats, best of 3 takes | 8 clips, 1080p, 5–8 s, audio off | ≈ $7–16, cancel after |
+| 4 Post | DaVinci Resolve (free) + ffmpeg | 144 PNG stills 1080² | $0 |
 | 6 Ship | `scripts/hero-film/build.mjs` | AVIF/WebP sets, poster | — |
-| 7 Light sibling | relight S0–S8 in edit mode → repeat 3–6 | `public/hero-film/light/` | only if dark lands |
+| 6 Light sibling | relight S0–S8 in edit mode → repeat 3–5 | `public/hero-film/light/` | only if dark lands |
 
 Kling settings: Image-to-video, **Start & End frame** = Sn / Sn+1, Professional mode, 1080p, duration 5 s (8 s for beats 2 and 5), sound off, creativity/relevance toward *relevance*. Output aspect follows the input stills (square).
 
@@ -162,4 +161,4 @@ Retry rule: generate three takes per beat; reject any take where the device geom
 
 ## 10. Later (explicitly out of scope now)
 
-Light sibling (§6 step 7); 600-set frame-count reduction if mobile memory proves tight; per-beat sound design (none — silent film).
+Light sibling (§6 step 6); 600-set frame-count reduction if mobile memory proves tight; per-beat sound design (none — silent film).
