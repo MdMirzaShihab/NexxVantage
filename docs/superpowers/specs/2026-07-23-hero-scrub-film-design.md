@@ -48,16 +48,16 @@ Brief-card sentence (in-film, post-composited, ≤ 7 words, owner may replace): 
 ## 3. The stage — layout in the page
 
 - Section: `min-height: 450vh` (tunable constant `HERO_SCRUB_VH`), inner wrapper `position: sticky; top: 0; height: 100svh`, same two-column grid as today's `HeroMovement`.
-- Square slot: `280px` mobile, `440px` desktop (unchanged). Film canvas fills it; `box-shadow: inset 0 0 24px 12px var(--nv-hero-bg)` feathers the edge ring onto the page.
+- Square slot: `240px` mobile (was 280 — shrunk so the beat-0 copy and both CTAs fit inside a pinned `100svh` on phones; `ponytail:` the ghost CTA may touch the bottom edge at 375×667 and is reachable again at the final beat), `440px` desktop (unchanged). Film canvas fills it; `box-shadow: inset 0 0 24px 12px var(--nv-hero-bg)` feathers the edge ring onto the page.
 - At `p = 0` the hero reads as a normal hero: overline, H1 `Create your own Dimensions.`, subline, both CTAs. Nothing moves until scroll. CTAs are reachable without scrubbing.
-- At `p ≥ .875` the left column shows: MarkStatic + wordmark, closing line (draft: *Every engagement starts with a conversation, not a quote.*), primary CTA `Book a consultation`, ghost `See the craft`.
+- At `p ≥ .875` the left column shows: MarkStatic + wordmark, the RUNNING caption and its line from §2, primary CTA `Book a consultation`, ghost `See the craft`.
 - Native scroll only (sticky pin, no scroll-jacking). A thin vertical progress rail with eight ticks sits at the square's right edge on desktop.
 
 ---
 
 ## 4. The scrub engine
 
-**Assets** — `public/hero-film/dark/{900,600}/f-000.avif … f-143.avif` plus `.webp` siblings, and `poster.avif` (= f-143, S8). Mobile (`<768px`) loads the 600 set. Built by `scripts/hero-film/build.ts` from `masters/*.png` (1080²) using the already-installed `sharp`.
+**Assets** — `public/hero-film/dark/{900,600}/f-000.avif … f-143.avif` plus `.webp` siblings, and `poster.avif` (= f-143, S8). Mobile (`<768px`) loads the 600 set. Built by `scripts/hero-film/build.mjs` from `masters/*.png` (1080²) using the already-installed `sharp`.
 
 **Component boundaries** (new files; `HeroMovement.tsx` is replaced):
 
@@ -76,7 +76,7 @@ Brief-card sentence (in-film, post-composited, ≤ 7 words, owner may replace): 
 
 **Performance gates** — poster ≤ 50 KB; 900-set ≤ 6 MB, 600-set ≤ 3 MB total; first interactive frame within 1 s on 4G; no layout shift (square has fixed dimensions).
 
-**Animatic** — `scripts/hero-film/animatic.ts` renders 144 SVG frames (parametric per beat, brand palette) through `sharp` into the *same* asset layout. The engine has no animatic-specific code; the AI frames replace files one-for-one.
+**Animatic** — `scripts/hero-film/animatic.mjs` renders 144 SVG frames (parametric per beat, brand palette) through `sharp` into the *same* asset layout. The engine has no animatic-specific code; the AI frames replace files one-for-one.
 
 ---
 
@@ -97,7 +97,7 @@ Brief-card sentence (in-film, post-composited, ≤ 7 words, owner may replace): 
 | 3 Bake-off | Kling 3.0 Pro vs LTX-2 local, beat 3 (machining), same S3→S4 | pick per-beat assignment | ≈ 40 credits |
 | 4 Clips | Kling Standard plan: beats 2–7 (hero takes, best of 3); LTX-2 local: beats 1 and 8 + variants | 8 clips, 1080p, 4–8 s, audio off | ≈ $7–16, cancel after |
 | 5 Post | DaVinci Resolve (free) | 144 PNG stills 1080² | $0 |
-| 6 Ship | `scripts/hero-film/build.ts` | AVIF/WebP sets, poster | — |
+| 6 Ship | `scripts/hero-film/build.mjs` | AVIF/WebP sets, poster | — |
 | 7 Light sibling | relight S0–S8 in edit mode → repeat 3–6 | `public/hero-film/light/` | only if dark lands |
 
 Kling settings: Image-to-video, **Start & End frame** = Sn / Sn+1, Professional mode, 1080p, duration 5 s (8 s for beats 2 and 5), sound off, creativity/relevance toward *relevance*. Output aspect follows the input stills (square).
@@ -148,7 +148,7 @@ Retry rule: generate three takes per beat; reject any take where the device geom
 4. Grade: lift gold toward `#C9A84C`; crush background to the exact hex; verify with the colour picker on the corner pixels of three random frames.
 5. Planar-track the NexxVantage mark SVG (gold, matte finish) onto the seated module, beats 7–8 only. Planar-track the brief-card sentence (Inter, ivory, slight blur) onto the card, beats 1–2.
 6. Export PNG image sequence `f-000 … f-143`; poster = `f-143`.
-7. Run `scripts/hero-film/build.ts`; check set sizes against §4 gates.
+7. Run `scripts/hero-film/build.mjs`; check set sizes against §4 gates.
 
 ---
 
