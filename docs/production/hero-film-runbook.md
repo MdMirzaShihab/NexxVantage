@@ -15,7 +15,7 @@
 | Tool | Use | Get it |
 |---|---|---|
 | Gemini app (Nano Banana image model) | reference stills + 9 keyframes | gemini.google.com — free tier is enough |
-| Kling, Standard plan | all 8 beat clips | klingai.com — the $6.99 first month you screenshotted; cancel after |
+| Kling, Standard plan | all 8 beat clips | klingai.com — Standard, $10/mo (~30% off first month); cancel after |
 | DaVinci Resolve (free) | assembly, edge matte, grade, mark/brief composites, PNG export | Mac App Store, "DaVinci Resolve" (not Studio) |
 | ffmpeg | resample 960 frames → 144 | `brew install ffmpeg` |
 | Digital Color Meter | verify corner pixels | already on your Mac: Applications → Utilities |
@@ -112,7 +112,7 @@ Every generation: **Negative prompt** = the block in Appendix A. **Creativity / 
 
 Reject a take if: the device's stand, rim, or module count changes · hands or fingers appear · text appears · the camera cuts · the last frame is visibly far from the end still. Prefer the take whose final frame is closest to S(n+1) — Resolve can hide a small mismatch, not a large one.
 
-**3.4 Credits.** Check the credit cost shown next to the Generate button before queuing (Professional 1080p 5 s ≈ 35–50). 24 takes ≈ 1,000 credits: 660 from the month plus subscriber daily credits, or a second month. Stop generating when you have one keeper per beat — extra takes are for beats 2, 5, and 7 only (the hardest).
+**3.4 Credits.** Kling 3.0 at 1080p without audio burns 8 credits/s: 40 per 5 s beat, 64 per 8 s beat — one full pass = 368 credits, three takes ≈ 1,100. Standard's 660 covers ~1.8 passes; buy one ~$5 top-up pack (100 credits ≈ $1.06) when it runs dry rather than a bigger plan. Never enable audio — it rises to 12 credits/s for a film that ships silent. Stop generating when you have one keeper per beat — extra takes are for beats 2, 5, and 7 only (the hardest).
 
 **3.5 If a beat keeps failing**
 
