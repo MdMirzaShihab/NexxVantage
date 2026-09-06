@@ -138,7 +138,7 @@ async function check(file, ref) {
 const argv = process.argv.slice(2);
 const ri = argv.indexOf("--ref");
 const refFile = ri >= 0 ? argv[ri + 1] : null;
-const files = argv.filter((a, i) => a !== "--ref" && i !== ri + 1);
+const files = argv.filter((a, i) => ri < 0 ? true : i !== ri && i !== ri + 1);
 if (!files.length) { console.error("usage: node scripts/hero-film/check-still.mjs <file.png> ... [--ref approved.png]"); process.exit(2); }
 
 let ref = null;
