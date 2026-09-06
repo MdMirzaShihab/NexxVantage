@@ -93,7 +93,14 @@ Save as `02-keyframes/S0.png … S7.png`, ≥ 1024 px square.
 
 1. Open all eight in Preview as a contact sheet and read them left to right as a story.
 2. Look at them at **240 px**. That is the size most visitors get. If a beat stops communicating there, it stops communicating.
-3. Check the background numerically. In Preview, use the colour picker on three points far from the subject in each still; every one must be close to `15 / 30 / 53`. If a still is 10+ levels off across large areas, it has a gradient the eye is forgiving of and the page will not be.
+3. Check it numerically, from the repo:
+
+   ```bash
+   node scripts/hero-film/check-still.mjs ~/NexxVantage-film/02-keyframes/S*.png \
+     --ref ~/NexxVantage-film/01-references/ref-device-front.png
+   ```
+
+   Four gates per still: square and ≥ 1024; the flat field covers enough of the frame; that field sits within 6 levels of `#0F1E35`; and the subject floats clear of every edge. It also reports each still's gold hue and its distance from the reference. A uniform offset from `#C9A84C` is fine — §4.5 fixes it in one node — but any still more than 3° from the others has left the family and must be regenerated, because no global grade can pull it back without breaking the rest.
 
 Only continue when you would sign the set off as a storyboard.
 
@@ -154,7 +161,13 @@ That removes gradients without touching the device. Then check with **Digital Co
 
 **4.4 Edge ring.** Drag `edge-ring-1080.png` onto **V2**, stretch it over the full timeline. With 4.3 done this is insurance rather than the mechanism — and it still erases any corner watermark.
 
-**4.5 Grade (Color page).** Small moves only, and only on the subject: a touch of warmth in the highlights toward `#C9A84C`. Leave the background alone — 4.3 already fixed it, and a lift or curve applied globally will undo it.
+**4.5 Grade (Color page) — one hue rotation, measured.** Gemini will not output `#C9A84C`. On the first attempt every still's gold sat at hue **35.5–36.2°** against brand gold's **44.2°**, and at saturation **0.35–0.40** against **0.62**. That is fine, and it is what this step exists for: a single Hue-vs-Hue rotation of about **+8°** on the yellows, plus a saturation lift, corrects the whole film at once.
+
+What it cannot correct is a still that has left the family. On that same attempt S3 sat at 43.3°, about 7.5° away from the other four — pulling S3 into line would push them out. So:
+
+1. Confirm with `check-still.mjs --ref` that every still is within 3° of the device reference **before** grading.
+2. Then one qualifier on the golds: rotate hue to land near 44°, raise saturation toward 0.62, leave luminance alone.
+3. Leave the background alone entirely — 4.3 already fixed it, and a global lift or curve will undo it.
 
 **4.6 Signature mark, beat 7 (frames 630–749 on the 960-frame timeline).** Select clip 7 → **Fusion** page:
 

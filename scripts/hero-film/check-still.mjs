@@ -1,8 +1,15 @@
-// Gate a hero-film keyframe: flat #0F1E35 field, square, brand gold present, nothing at the edges.
-// Run: node scripts/hero-film/check-still.mjs <file.png> [more.png ...]
+// Gate a hero-film keyframe: flat #0F1E35 field, square, gold in family, nothing at the edges.
+// Run: node scripts/hero-film/check-still.mjs <file.png> [more.png ...] [--ref approved.png]
+//
+// On gold: a diffusion model will not hit #C9A84C, and that is fine — a single hue rotation in
+// Resolve corrects a whole film that is uniformly off. What it cannot correct is one still that
+// has left the family, because fixing that one breaks the rest. So --ref grades drift against an
+// approved still, and distance from brand gold is reported as information, not as a failure.
 import sharp from "sharp";
 
 const TARGET = [15, 30, 53];          // --nv-hero-bg
+const GOLD = [201, 168, 76];          // --nv-gold-500
+const MAX_HUE_DRIFT = 3;              // degrees away from the reference still before it is a reject
 const TILE = 32;
 const FLAT_STD = 3;                    // a tile with less variation than this is featureless
 const FIELD_NEAR = 45;                 // ...and this close to TARGET to count as field, not a flat subject
@@ -10,8 +17,16 @@ const MAX_DRIFT = 6;                   // how far a field tile may sit from TARG
 const MIN_FIELD = 0.55;                // field must cover at least this much of the frame
 
 const d3 = (a, b) => Math.max(...a.map((v, i) => Math.abs(v - b[i])));
+const median = (a) => { const c = [...a].sort((x, y) => x - y); return c[c.length >> 1]; };
+function hsv(r, g, b) {
+  const mx = Math.max(r, g, b), mn = Math.min(r, g, b), d = mx - mn;
+  let h = 0;
+  if (d) h = mx === r ? 60 * (((g - b) / d) % 6) : mx === g ? 60 * ((b - r) / d + 2) : 60 * ((r - g) / d + 4);
+  return [(h + 360) % 360, mx ? d / mx : 0, mx / 255];
+}
+const GOLD_HSV = hsv(...GOLD);
 
-async function check(file) {
+async function check(file, ref) {
   const { data, info } = await sharp(file).raw().toColourspace("srgb").toBuffer({ resolveWithObject: true });
   const { width: W, height: H, channels: C } = info;
   const at = (x, y) => { const i = (y * W + x) * C; return [data[i], data[i + 1], data[i + 2]]; };
@@ -64,10 +79,16 @@ async function check(file) {
   const subjectPct = subjectTiles / (rows * cols);
 
   let gold = 0;
+  const hues = [], sats = [];
   for (let y = 0; y < H; y += 3) for (let x = 0; x < W; x += 3) {
     const [r, g, b] = at(x, y);
     if (r > 90 && g > 70 && b < r * 0.75) gold++;
+    const [h, s, v] = hsv(r, g, b);
+    if (v > 0.35 && s > 0.25 && h >= 15 && h <= 75) { hues.push(h); sats.push(s); }
   }
+  const goldHsv = hues.length >= 200
+    ? { hue: median(hues), sat: median(sats), n: hues.length }
+    : { hue: null, sat: null, n: hues.length };
 
   const field = flatPx / (W * H);
   const drifts = flat.map((t) => t.drift).sort((a, b) => a - b);
@@ -89,6 +110,8 @@ async function check(file) {
     field: field >= MIN_FIELD,
     drift: p95 <= MAX_DRIFT,
     floats: !touches && subjectPct <= 0.45,
+    // Only enforced when a reference still is given; accuracy is the grade's job, family is not.
+    goldFamily: !ref || !ref.hue || !goldHsv.hue || Math.abs(goldHsv.hue - ref.hue) <= MAX_HUE_DRIFT,
   };
   const mark = (b) => (b ? "PASS" : "FAIL");
   console.log(`\n${file}  ${W}x${H}`);
@@ -99,14 +122,30 @@ async function check(file) {
     console.log(`      worst tile at ${worst.tx},${worst.ty} reads [${worst.mean.map((v) => v.toFixed(0))}] — drift ${worst.drift.toFixed(1)}`);
   }
   console.log(`  subject floats ........ ${mark(ok.floats)}  ${(subjectPct * 100).toFixed(1)}% of frame${touches ? ", TOUCHING THE FRAME EDGE <- a surface or floor is in shot" : ", clear of every edge"}`);
-  console.log(`  brand gold ............ ${goldPct.toFixed(2)}% of pixels${goldPct < 0.3 ? "  <- low, is the gold actually gold?" : ""}`);
+  if (goldHsv.hue === null) {
+    console.log(`  gold .................. ${goldPct.toFixed(2)}% of pixels — too little to measure${goldPct < 0.3 ? "  <- should this frame have gold in it?" : ""}`);
+  } else {
+    const off = goldHsv.hue - GOLD_HSV[0];
+    const fam = ref && ref.hue ? `, ${(goldHsv.hue - ref.hue >= 0 ? "+" : "") + (goldHsv.hue - ref.hue).toFixed(1)}deg from the reference still` : "";
+    console.log(`  gold .................. ${mark(ok.goldFamily)}  hue ${goldHsv.hue.toFixed(1)}deg sat ${goldHsv.sat.toFixed(2)} over ${goldPct.toFixed(2)}% of pixels`);
+    console.log(`      ${(off >= 0 ? "+" : "") + off.toFixed(1)}deg from #C9A84C (a uniform offset is fine, one Resolve node fixes it)${fam}`);
+  }
   console.log(`  content in outer 15% .. ${((100 * edge) / edgeTot).toFixed(1)}%${edge / edgeTot > 0.02 ? "  <- the post ring will cover it" : ""}`);
   console.log(`  VERDICT ............... ${Object.values(ok).every(Boolean) ? "ACCEPT" : "REGENERATE"}`);
-  return Object.values(ok).every(Boolean);
+  return { ok: Object.values(ok).every(Boolean), hue: goldHsv.hue, sat: goldHsv.sat };
 }
 
-const files = process.argv.slice(2);
-if (!files.length) { console.error("usage: node scripts/hero-film/check-still.mjs <file.png> ..."); process.exit(2); }
+const argv = process.argv.slice(2);
+const ri = argv.indexOf("--ref");
+const refFile = ri >= 0 ? argv[ri + 1] : null;
+const files = argv.filter((a, i) => a !== "--ref" && i !== ri + 1);
+if (!files.length) { console.error("usage: node scripts/hero-film/check-still.mjs <file.png> ... [--ref approved.png]"); process.exit(2); }
+
+let ref = null;
+if (refFile) {
+  console.log(`reference: ${refFile}`);
+  ref = await check(refFile, null);
+}
 let allOk = true;
-for (const f of files) allOk = (await check(f)) && allOk;
+for (const f of files) allOk = (await check(f, ref)).ok && allOk;
 process.exitCode = allOk ? 0 : 1;
