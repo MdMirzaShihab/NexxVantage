@@ -15,7 +15,7 @@
 - Hero section classes stay `nv-velvet nv-hero`; hero background token is `var(--nv-hero-bg)` (midnight `#0F1E35` in both themes via `.nv-velvet`).
 - `FRAME_COUNT = 144`, `BEAT_COUNT = 8`, `HERO_SCRUB_VH = 450`; frame sets at 900² (desktop) and 600² (mobile `<768px`); AVIF quality 50, WebP quality 78.
 - Size gates: 900 AVIF set ≤ 6 MB, 600 AVIF set ≤ 3 MB, poster ≤ 50 KB.
-- Outer 54 px (5 %) of every 1080² master is solid `#0F1E35`.
+- **The entire background of every 1080² master is solid `#0F1E35`** — the subject floats, there is no bench, surface, horizon or cast shadow. The outer 54 px ring is insurance on top of that, not the mechanism. `f-143` is the NexxVantage mark alone on the flat field, and it doubles as the poster and the loop hinge (`f-143` must sit next to `f-000` seamlessly).
 - All copy lives in `src/lib/constants.ts` (`HOME.hero.film`); no inline copy in components. Sentence case; no exclamation marks; `-ise` spelling.
 - Fallbacks (reduced motion, `navigator.connection.saveData`, no JS) render the poster, no pin, no captions.
 - Canvas is `aria-hidden`; poster `<img>` carries `alt`; H1 stays in the hero.
@@ -170,7 +170,9 @@ git commit -m "feat(hero-film): frame/beat math with node:test coverage"
 
 ### Task 2: Animatic masters (`scripts/hero-film/animatic.mjs`)
 
-Renders 144 parametric SVG frames (8 beats × 18 frames) into 1080² PNG masters using `sharp`. The frames are stylised stand-ins for the AI film, in the brand palette, following the spec's beat sheet. The build pipeline and the engine never know whether masters came from here or from DaVinci.
+Renders 144 parametric SVG frames (8 beats × 18 frames) into 1080² PNG masters using `sharp`. The frames are stylised stand-ins for the AI film, in the brand palette, following the spec's beat sheet.
+
+> If you ever render the animatic for real, drop the `bench` const's `<line …/>` — the spec no longer has a bench line, and the animatic should float its subjects on flat `#0F1E35` like the AI frames. The tests do not check for it. The build pipeline and the engine never know whether masters came from here or from DaVinci.
 
 **Files:**
 - Create: `scripts/hero-film/animatic.mjs`
@@ -458,7 +460,7 @@ In `src/lib/constants.ts`, after the line `ctaGhost: { label: "See the craft", h
 
 ```ts
     film: {
-      posterAlt: "A slim obsidian device at rest on a midnight bench, its screen alive with gold light.",
+      posterAlt: "The NexxVantage mark in gold, at rest on midnight.",
       captions: [
         { label: "Drawn", line: "Your goal, your problems, your plan — drawn from your words, not a template." },
         { label: "Machined", line: "Every part cut to your spec, by senior hands." },
@@ -468,6 +470,7 @@ In `src/lib/constants.ts`, after the line `ctaGhost: { label: "See the craft", h
         { label: "Signed", line: "The last part we fit is our name." },
       ],
       closing: { label: "Running", line: "Your product. Our movement inside. At full speed." },
+      // No `logo` entry: the mark is carried by the film at this beat, not by the HTML.
     },
 ```
 
@@ -670,7 +673,7 @@ git commit -m "feat(hero-film): coarse-to-fine frame loader and poster-backed ca
 - Delete: `src/components/sections/HeroMovement.tsx`
 
 **Interfaces:**
-- Consumes: `FilmCanvas` (Task 5), `HOME.hero.film` (Task 4), `HERO_SCRUB_VH`, `BEAT_COUNT`, `beatForProgress` (Task 1), `useReducedMotionSafe`, `Button`, `Logo`
+- Consumes: `FilmCanvas` (Task 5), `HOME.hero.film` (Task 4), `HERO_SCRUB_VH`, `BEAT_COUNT`, `beatForProgress` (Task 1), `useReducedMotionSafe`, `Button`
 - Produces: `<HeroFilm />` default export (no props)
 
 - [ ] **Step 1: Write the section**
@@ -683,7 +686,6 @@ git commit -m "feat(hero-film): coarse-to-fine frame loader and poster-backed ca
 import { useEffect, useRef, useState } from "react";
 import { motion, useMotionValueEvent, useScroll } from "motion/react";
 import Button from "@/components/ui/Button";
-import Logo from "@/components/ui/Logo";
 import FilmCanvas from "@/components/hero-film/FilmCanvas";
 import { useReducedMotionSafe } from "@/lib/useReducedMotionSafe";
 import { BEAT_COUNT, HERO_SCRUB_VH, beatForProgress } from "@/lib/hero-film";
@@ -739,13 +741,14 @@ function Caption({ label, line }: { label: string; line: string }) {
   );
 }
 
+// No <Logo /> here: at this beat the film itself resolves to the mark. Two marks
+// side by side halve the impact of each (spec §3).
 function Closing() {
   const { film, ctaPrimary, ctaGhost } = HOME.hero;
   return (
     <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, ease: "easeOut" }}>
       <p className="nv-overline mb-4" style={{ color: "var(--nv-hero-accent)" }}>{film.closing.label}</p>
       <p className="font-display text-2xl font-semibold leading-snug md:text-4xl" style={{ color: "var(--nv-hero-heading)" }}>{film.closing.line}</p>
-      <div className="mt-8"><Logo /></div>
       <div className="mt-8 flex flex-row flex-wrap gap-4">
         <Button href={ctaPrimary.href}>{ctaPrimary.label}</Button>
         <Button href={ctaGhost.href} variant="ghost">{ctaGhost.label}</Button>
@@ -844,12 +847,14 @@ Run: `npm run dev` (background), open `http://localhost:3000`.
 
 Check, in order:
 1. Top of page: headline, subline, both CTAs visible; the square shows the poster (settled device) then cross-fades to frame 0 (brief card) within ~1 s.
-2. Scroll slowly: the square scrubs forward and backward without pops; the left column switches to `DRAWN … SIGNED` captions and ends on `RUNNING` + Logo + CTAs; rail dots fill in gold.
-3. Canvas corner colour equals the page background. In the console:
+2. Scroll slowly: the square scrubs forward and backward without pops; the left column switches to `DRAWN … SIGNED` captions and ends on `RUNNING` + CTAs (no HTML logo — the film resolves to the mark); rail dots fill in gold.
+3. Canvas background equals the page background — check a point well inside the frame, not just the corner. In the console:
    ```js
-   const c = document.querySelector("canvas"); const d = c.getContext("2d").getImageData(0, 0, 1, 1).data; [d[0], d[1], d[2]]
+   const c = document.querySelector("canvas"); const g = c.getContext("2d");
+   const at = (x, y) => Array.from(g.getImageData(x, y, 1, 1).data).slice(0, 3);
+   [at(0, 0), at(120, 120), at(c.width - 120, 120)]
    ```
-   Expected: `[15, 30, 53]`.
+   Expected: `[15, 30, 53]` at all three.
 4. Mobile 390×844: film square on top, copy below; at beat 0 both CTAs sit inside the viewport. At 375×667 the ghost CTA may touch the bottom edge — acceptable ceiling (`ponytail:` noted in the spec's stage section); it is still reachable after the film ends.
 5. Reduced motion (macOS: System Settings → Accessibility → Display → Reduce motion, or Playwright `page.emulateMedia({ reducedMotion: "reduce" })`): hero is one screen, poster only, no pin.
 
@@ -976,7 +981,9 @@ Expected: identical behaviour to dev; network tab shows `f-000.avif` first, then
 - Reduced motion → poster hero; DevTools → Network → "Save-Data" cannot be toggled in all browsers, so verify `useSaveData` by temporarily running `Object.defineProperty(navigator, "connection", { value: { saveData: true } })` before load in a Playwright `addInitScript`, or accept the reduced-motion path as the proxy.
 - JS disabled (DevTools → Settings → Debugger → Disable JavaScript): hero is one screen with the poster, no 450vh blank.
 - `grep -rn MarkCanvas src` → nothing.
-- The film contains no wordmark, no CTA, no logo other than the signature module (animatic: plain gold module; AI frames: composited glyph).
+- The film contains no wordmark and no CTA. The mark appears exactly twice: composited on the signature module in beat 7, and resolving on the screen then alone in beat 8. No `<Logo />` in the closing HTML block.
+- Background: on three random frames, a pixel 200 px in from the edge reads `[15, 30, 53]`, not just the corner pixel. No horizon or cast shadow anywhere in the film.
+- Loop: `f-143` (mark alone) placed beside `f-000` shows no seam.
 
 - [ ] **Step 3: Record results**
 
@@ -992,4 +999,4 @@ git commit -m "docs(hero-film): acceptance results"
 ## Later (not in this plan)
 
 - Replace `hero-film-masters/dark/*.png` with the DaVinci export, run `npm run film:build`, commit `public/hero-film/dark` — no code changes.
-- Light sibling: `node scripts/hero-film/build.mjs light` after `hero-film-masters/light/` exists; `FilmCanvas` already accepts `theme="light"` — wire it to the site theme only when those assets exist.
+- No light sibling is planned: `.nv-velvet` pins `--nv-hero-bg` to `#0F1E35` under `data-theme="light"` too, so one frame set blends in both themes. `FilmCanvas` keeps its `theme` prop, unused.

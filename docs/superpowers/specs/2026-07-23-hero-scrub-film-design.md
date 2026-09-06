@@ -15,42 +15,46 @@ Owner decisions (all locked):
 | Decision | Choice |
 |---|---|
 | Placement | The hero **is** the film. Method section loses its exploded-mark scrub (no repeated trick). |
-| Story | Atelier spine (unseen craftsman's bench) + blueprint beat + one exploded hold. **No logo geometry carries meaning.** The mark appears once, as the maker's signature part. |
-| Frame | Square 1:1, right half on desktop, stacked on mobile (existing hero grid). Outer ~5% of every frame is the exact `--nv-hero-bg` hex. |
-| Themes | Dark film first. Light "white studio" sibling only if dark succeeds. Hero stays velvet-midnight in light mode until then (`.nv-velvet` already does this). |
-| Delivery | Image-sequence scrub on `<canvas>` (AVIF + WebP). Never `<video>` (seek jank, codec colour shift). |
-| Text | All captions, wordmark, closing line, CTAs are HTML beside the film. In-film text only on the brief card and the mark glyph — both composited in post, never generated. |
+| Story | Atelier spine (tools enter and withdraw; the maker is never seen) + blueprint beat + one exploded hold. The mark appears **twice, with two meanings**: beat 7 as the maker's signature part, beat 8 as what the finished product is *running*. No device geometry is a disguised logo — the mark is only ever the mark. |
+| Frame | Square 1:1, right half on desktop, stacked on mobile (existing hero grid). **The whole background is the exact `--nv-hero-bg` hex** — the subject floats in the page, so the frame's rectangle is invisible. No bench, no surface, no floor, no horizon line, no vignette, no cast shadow. |
+| Themes | One film, both site themes — no light sibling. `.nv-velvet` re-pins `--nv-hero-bg` to `--nv-midnight-500` (`#0F1E35`) even under `data-theme="light"`, so the hero is midnight either way and a single frame set blends in both. |
+| Delivery | Image-sequence scrub on `<canvas>` (AVIF + WebP). Never `<video>` on the site (seek jank, codec colour shift). The same 144 frames also export **once** as a seamless looping MP4 for off-site use — social, decks, email. The site never loads it. |
+| Text | All captions, wordmark, closing line and CTAs are HTML beside the film. The **mark is in-film only** — there is no `<Logo />` in the closing HTML block. In-film graphics are limited to the brief-card sentence and the mark, both composited in post, never generated. |
 | Production | Stills: Gemini (Nano Banana) / Draw Things. All 8 clips: Kling 3.0 Pro on the Standard plan (commercial licence, 1080p, start+end frame). Local video generation was evaluated and rejected (see runbook Appendix B). Post: DaVinci Resolve + ffmpeg. |
 
 ---
 
 ## 2. The film — beat sheet
 
-Eight beats, one bench, midnight velvet, single warm key light from upper-left. Scroll progress `p ∈ [0,1]` splits into eight equal slices; 144 frames (18 per beat); nine boundary stills S0–S8 sit at frames 0, 18, … 144. Each beat's clip is generated **from still Sn to still Sn+1**.
+Eight beats, no set. Every subject floats in flat `#0F1E35` under a single warm key light from upper-left; tools enter frame and withdraw; nothing rests on anything. Scroll progress `p ∈ [0,1]` splits into eight equal slices; 144 frames (18 per beat); nine boundary stills S0–S8 sit at frames 0, 18, … 144. Each beat's clip is generated **from still Sn to still Sn+1**.
+
+**The film loops.** `f-143` must sit next to `f-000` without a seam, so that scrubbing back up reads as a return rather than a rewind and the exported MP4 can autoplay on repeat. Beat 8 therefore ends on the mark alone in flat `#0F1E35` — the one frame with no card, no tool and no device — from which the next brief card can enter without a cut. That hold is the loop hinge, and it is what makes the mark mean *partner across every commission* rather than *author of this one*.
 
 | # | Beat | p range | What the frame shows (S_start → S_end) | Caption (HTML, draft — owner locks) |
 |---|---|---|---|---|
-| 1 | Still life | 0–.125 | S0 brief card resting on the bench, nothing else moving → S1 calipers have closed on one line of the words; gold readout glows. Hero headline/sub/CTAs visible in HTML; no caption. | — |
-| 2 | Drawn | .125–.25 | S1 → S2 the measured words unravel into gold ink that draws a technical plan across the bench — the floor plan of *their* product, dimensions annotated with fragments of their sentence. | **DRAWN** · Your goal, your problems, your plan — drawn from your words, not a template. |
+| 1 | Still life | 0–.125 | S0 brief card floating alone in the field, nothing else moving → S1 calipers have closed on one line of the words; gold readout glows. Hero headline/sub/CTAs visible in HTML; no caption. | — |
+| 2 | Drawn | .125–.25 | S1 → S2 the measured words unravel into gold ink that draws a technical plan in the space beside the card — the floor plan of *their* product, dimensions annotated with fragments of their sentence. | **DRAWN** · Your goal, your problems, your plan — drawn from your words, not a template. |
 | 3 | Machined | .25–.375 | S2 → S3 the plan's dimensions feed a milling head; a gold module is cut, shavings catch the light; ends on a macro of the finished part. | **MACHINED** · Every part cut to your spec, by senior hands. |
 | 4 | Assembled | .375–.5 | S3 → S4 precision tweezers seat the module into the obsidian chassis; two more parts arrive and seat in rhythm; device nearly complete. | **ASSEMBLED** · Built in the order your business needs it. |
 | 5 | Opened | .5–.625 | S4 → S5 assembly pauses: the device lifts and suspends apart into four named layers — interface glass, workflow boards, gold AI core, infrastructure lattice — slow quarter-turn. | **OPENED** · No sealed boxes. Every layer visible, every layer yours. |
-| 6 | Sealed | .625–.75 | S5 → S6 layers glide home, glass closes; a small blank gold module waits above an empty recess on the device's edge. | **SEALED** · Closed only when every layer is right. |
-| 7 | Signed | .75–.875 | S6 → S7 tweezers lower the module into the recess; it seats — one gold glint — and *that* wakes the device: the screen blooms, first gold threads of traffic flow. (The NexxVantage mark is composited onto this module in post.) | **SIGNED** · The last part we fit is our name. |
-| 8 | Running | .875–1 | S7 → S8 camera eases back; device settles to its resting angle, alive, threads streaming. S8 is also the poster frame. HTML beside it: mark + wordmark rise, closing line, CTAs. | **RUNNING** · Your product. Our movement inside. At full speed. |
+| 6 | Sealed | .625–.75 | S5 → S6 layers glide home, glass closes; a small blank gold module is held between both tweezer tines directly above the empty recess on the device's edge. | **SEALED** · Closed only when every layer is right. |
+| 7 | Signed | .75–.875 | S6 → S7 tweezers lower the module into the recess; it seats — one gold glint — and *that* wakes the device: the screen blooms, first gold threads of traffic stream outward. (The NexxVantage mark is composited onto this module in post.) | **SIGNED** · The last part we fit is our name. |
+| 8 | Running | .875–1 | S7 → S8 camera eases back; the device settles, alive. The gold threads that have run through every beat gather onto its screen and resolve into the NexusMark — the mark is what the product is *running*, not a stamp on its shell. The device then recedes and the mark holds alone on flat `#0F1E35`. S8 (mark alone) is the poster frame and the loop hinge. HTML beside it: wordmark, closing line, CTAs — no logo. | **RUNNING** · Your product. Our movement inside. At full speed. |
 
 Caption placement: desktop — left column, replaces headline block after beat 1 (cross-fade at slice boundaries); mobile — directly below the square. Caption labels are the only words on screen during beats 2–7. The caliper measurement lands at the end of beat 1 while the hero headline is still up — it is the hook, not a captioned beat.
 
 Brief-card sentence (in-film, post-composited, ≤ 7 words, owner may replace): `Every quote takes us three days.`
+
+Beat 8 frame budget — 18 frames (126–143): roughly 8 for the ease-back and thread gather, 6 for the mark resolving on the screen, 4 for the device receding to the mark-alone hold. The hold is pure compositing over a flat field: no generation, and it encodes to almost nothing, which is why `f-143` also makes a better poster than a photograph of the device.
 
 ---
 
 ## 3. The stage — layout in the page
 
 - Section: `min-height: 450vh` (tunable constant `HERO_SCRUB_VH`), inner wrapper `position: sticky; top: 0; height: 100svh`, same two-column grid as today's `HeroMovement`.
-- Square slot: `240px` mobile (was 280 — shrunk so the beat-0 copy and both CTAs fit inside a pinned `100svh` on phones; `ponytail:` the ghost CTA may touch the bottom edge at 375×667 and is reachable again at the final beat), `440px` desktop (unchanged). Film canvas fills it; `box-shadow: inset 0 0 24px 12px var(--nv-hero-bg)` feathers the edge ring onto the page.
+- Square slot: `240px` mobile (was 280 — shrunk so the beat-0 copy and both CTAs fit inside a pinned `100svh` on phones; `ponytail:` the ghost CTA may touch the bottom edge at 375×667 and is reachable again at the final beat), `440px` desktop (unchanged). Film canvas fills it. The `box-shadow: inset 0 0 24px 12px var(--nv-hero-bg)` feather stays as insurance only — with the whole frame already on `--nv-hero-bg` there is no edge to hide, and it can be reduced or dropped once real frames are in.
 - At `p = 0` the hero reads as a normal hero: overline, H1 `Create your own Dimensions.`, subline, both CTAs. Nothing moves until scroll. CTAs are reachable without scrubbing.
-- At `p ≥ .875` the left column shows: MarkStatic + wordmark, the RUNNING caption and its line from §2, primary CTA `Book a consultation`, ghost `See the craft`.
+- At `p ≥ .875` the left column shows: wordmark, the RUNNING caption and its line from §2, primary CTA `Book a consultation`, ghost `See the craft`. **No `MarkStatic`** — the mark is carried by the film at that moment, and two marks side by side halve the impact of each.
 - Native scroll only (sticky pin, no scroll-jacking). A thin vertical progress rail with eight ticks sits at the square's right edge on desktop.
 
 ---
@@ -92,73 +96,95 @@ Brief-card sentence (in-film, post-composited, ≤ 7 words, owner may replace): 
 
 | Step | Tool | Output | Cost |
 |---|---|---|---|
-| 1 Reference pack | Gemini (Nano Banana) or Draw Things | 4–8 stills: device from 3 angles + bench/lighting, all 1:1 | $0 |
+| 1 Reference pack | Gemini (Nano Banana) or Draw Things | 3–4 stills: the device from three angles on the flat field, all 1:1. **No bench reference** — there is no set to establish. | $0 |
 | 2 Keyframes | same, **edit mode** (derive from approved stills, never regenerate fresh) | S0–S8, 1:1, ≥ 1024² | $0 — **approval gate before any video** |
 | 3 Clips | Kling Standard plan: all 8 beats, best of 3 takes | 8 clips, 1080p, 5–8 s, audio off | ≈ $7–16, cancel after |
 | 4 Post | DaVinci Resolve (free) + ffmpeg | 144 PNG stills 1080² | $0 |
-| 6 Ship | `scripts/hero-film/build.mjs` | AVIF/WebP sets, poster | — |
-| 6 Light sibling | relight S0–S8 in edit mode → repeat 3–5 | `public/hero-film/light/` | only if dark lands |
+| 5 Ship | `scripts/hero-film/build.mjs` | AVIF/WebP sets, poster | — |
+| 6 Loop file | one `ffmpeg` pass over the same 144 frames | seamless MP4 for social/decks/email | — |
 
-Kling settings: Image-to-video, **Start & End frame** = Sn / Sn+1, Professional mode, 1080p, duration 5 s (8 s for beats 2 and 5), sound off, creativity/relevance toward *relevance*. Output aspect follows the input stills (square).
+Kling settings: Image-to-video, **Start & End frame** = Sn / Sn+1, Professional mode, 1080p, **duration 5 s for every beat**, sound off, creativity/relevance toward *relevance*. Output aspect follows the input stills (square).
+
+> Beats 2 and 5 were previously specified at 8 s. Post retimes every beat to exactly 120 frames with Optical Flow off, and ffmpeg then decimates 960 → 144 — so an 8 s clip is nearest-neighbour crushed roughly 13:1, and the quarter-turn and the ink stroke are precisely the motions that strobe under that. Generating them at 5 s removes the double decimation and saves 48 credits a pass.
+
+Beat 8 is generated only as far as the device settling and the threads gathering; the mark and the final recede are composited (§8).
 
 ---
 
 ## 7. Prompt kit
 
 **Global style block** (prepend to every still and clip prompt):
-> Luxury product cinematography, macro lens, shallow depth of field. Deep midnight navy velvet workbench (#0F1E35) under a single warm key light from upper-left; background falls to solid dark navy at all edges, no gradients touching the frame edge. Materials: obsidian black glass, brushed gold (#C9A84C), dark machined metal. No people, no hands, no text, no logos, no watermarks. Square composition, subject centred with generous margin.
+> Luxury product cinematography, macro lens. A single subject floating in empty space against a completely flat, solid, uniform dark navy field (#0F1E35) that fills the entire frame edge to edge. No table, no bench, no surface, no floor, no ground plane, no horizon line, no cast shadow, no vignette, no gradient, no atmosphere, no depth haze — nothing behind the subject but flat colour. Single warm key light from upper-left. Materials: obsidian black glass, brushed gold (#C9A84C), dark machined metal. No people, no hands, no text, no logos, no watermarks. Square composition, subject centred with generous margin.
 
-**Negative block:** `hands, fingers, person, text, letters, numbers, logo, watermark, lens flare streaks, bright white background, busy background, motion blur smear, extra objects`
+**Negative block:** `table, desk, bench, workbench, surface, floor, ground, horizon, shadow, cast shadow, reflection on surface, vignette, gradient background, fabric, velvet, carpet, texture, hands, fingers, person, text, letters, numbers, logo, watermark, lens flare streaks, bright white background, busy background, motion blur smear, extra objects`
 
-**Device design brief (step 1):** a slim obsidian glass slab with softly rounded corners, about the proportion of a closed notebook, standing at a slight resting angle on a low dark stand; a thin brushed-gold rim; three small rectangular gold modules set flush into its edge; a single empty recess beside them. Keep the geometry simple — it must survive eight regenerations.
+The negative block does most of the work here. Image models default to putting objects *on* something; the flat field has to be asked for in the positive prompt and forbidden in the negative one, or the bench comes back.
+
+**Device design brief (step 1):** a slim obsidian glass slab with softly rounded corners, about the proportion of a closed notebook, floating at a slight angle in empty space — **no stand, nothing supporting it**; a thin brushed-gold rim; a row of small rectangular gold modules set flush into its **left edge**, seen from a three-quarter view so the edge is visible; one empty recess at the end of the row. The gold rim is the object's silhouette and its only brand colour — it must read at 240 px. Keep the geometry simple: it has to survive eight regenerations.
+
+> Module count is whatever the approved reference lands on, but it must then be **identical in every still**. Five plus one recess is fine; three plus one is fine. Drift is what kills the film.
 
 **Keyframe stills (step 2)** — each begins with the global block, then:
 
-- **S0** — a small ivory paper brief card lies on the bench at a slight angle, soft text blur visible, the device faint in the background shadow.
-- **S1** — a fine steel vernier caliper closed around one line of the card, a small glowing gold numeric readout beside it.
-- **S2** — a technical plan drawn in thin luminous gold ink across the bench surface: rectangles, dimension lines, annotation ticks; the card at the edge of frame.
-- **S3** — macro of a freshly machined brushed-gold module on the bench, a few curled gold shavings beside it, a milling head withdrawn at top of frame.
-- **S4** — the obsidian device standing on its stand, three gold modules seated in its edge, precision tweezers withdrawing at top of frame.
-- **S5** — the device suspended mid-air, separated into four floating horizontal layers with even gaps: a clear glass plate on top, a dark board with fine gold traces, a small glowing gold core, a thin lattice frame below.
-- **S6** — the device reassembled and standing, glass closed, one empty recess on its edge; a small blank gold module held in tweezers just above it.
-- **S7** — the module seated in the recess with a single gold glint; the device's screen glowing softly with abstract light and thin gold threads beginning to flow across the bench.
-- **S8** — the device at rest, screen alive with soft light, gold threads of light streaming across the bench and into the dark.
+- **S0** — a small ivory paper brief card floating at a slight angle, soft unreadable text blur on it, alone in the flat navy field. Nothing else in frame.
+- **S1** — a fine steel vernier caliper floating beside the card, its jaws closed on one line of the blurred writing; a small glowing gold readout beside the jaws.
+- **S2** — the card drifting to the edge of frame; a technical plan drawn in thin luminous **brushed-gold** ink hanging in the space where the card was: rectangles, dimension lines, annotation ticks. The lines must be gold, not white.
+- **S3** — macro of one freshly machined brushed-gold module floating in the field, **the same size and proportion as the modules in the device's edge**; a few curled gold shavings drifting beside it; a milling head withdrawing at the top of frame.
+- **S4** — the obsidian device floating at a slight angle, gold modules seated in its left edge, one recess still empty, precision tweezers withdrawing at the top of frame.
+- **S5** — the device separated into four floating horizontal layers with **even gaps**: a clear glass plate on top carrying the modules, a dark board with fine gold traces, a small glowing gold core, a thin lattice frame below. The top plate keeps the obsidian body and the brushed-gold rim — it is the same object, opened.
+- **S6** — the device reassembled and floating, glass closed, one empty recess in its edge; a small blank gold module gripped between both tweezer tines directly above the recess, not beside it.
+- **S7** — the module seated in the recess with a single gold glint; the screen glowing softly with abstract light; thin gold threads beginning to stream outward from the device into the flat field.
+- **S8** — **not generated.** The NexusMark in brushed gold, alone, centred on flat `#0F1E35`. Composited in Resolve from `docs/production/assets/mark-gold-512.png`. This is the poster frame and the loop hinge.
 
 **Clip motion prompts (step 4)** — start frame Sn, end frame Sn+1, global block, then only the motion:
 
-1. `Nothing moves but the light: a slow breath of the key light across the card; in the last second the caliper enters from the right and closes on one line.`
-2. `The measured line lifts off the card as glowing gold ink and flows onto the bench, drawing rectangles and dimension lines in one continuous stroke.`
-3. `The milling head descends once, cuts in a slow pass, gold shavings curl away and settle; camera pushes in to a macro of the finished module.`
-4. `Tweezers lower the module into the device edge; it seats with a soft settle; two further modules arrive the same way in rhythm; tweezers withdraw.`
-5. `The device lifts and its layers separate vertically with even spacing, rotating a slow quarter-turn; camera orbits slightly; everything stays in focus.`
-6. `The layers glide back together and the glass closes; tweezers enter carrying a small blank gold module and hold it above the recess.`
-7. `The module lowers and seats; one sharp gold glint; the screen blooms on from the centre outward; thin gold threads begin to flow across the bench.`
-8. `Camera eases back slowly; the device settles into its resting angle; light threads stream steadily; the scene comes to rest.`
+1. `Nothing moves but the light: a slow breath of the key light across the floating card; in the last second the caliper enters from the right and closes on one line.`
+2. `The measured line lifts off the card as glowing gold ink and unfolds into the space beside it, drawing rectangles and dimension lines in one continuous stroke.`
+3. `The milling head descends once, cuts in a slow pass, gold shavings curl away and drift off; camera pushes in to a macro of the finished module.`
+4. `Tweezers lower the module into the device edge; it seats with a soft settle; two further modules arrive the same way in rhythm; tweezers withdraw upward out of frame.`
+5. `The device separates into four layers with even spacing, rotating a slow quarter-turn; camera orbits slightly; everything stays in focus.`
+6. `The layers glide back together and the glass closes; tweezers enter carrying a small blank gold module and hold it directly above the empty recess.`
+7. `The module lowers and seats; one sharp gold glint; the screen blooms on from the centre outward; thin gold threads begin to stream outward into the dark.`
+8. `Camera eases back slowly; the device settles; the gold threads curl inward and gather onto the screen. The scene comes to rest.` — the mark itself and the final recede are composited, not generated.
 
-Retry rule: generate three takes per beat; reject any take where the device geometry, module count, or stand changes; prefer the take whose last frame is closest to Sn+1.
-
----
+Retry rule: three takes per beat; reject any take where a surface, floor, horizon or cast shadow appears, or where the device geometry, module count or rim changes. Prefer the take whose last frame is closest to Sn+1.
 
 ## 8. Post checklist (Resolve)
 
 1. Import clips in beat order; trim each to the steady motion (cut generator warm-up/wind-down frames).
-2. Conform timeline to 1080×1080, 24 fps; retime each beat to **18 frames** of export (use speed ramps, not frame drops, so scrub motion stays smooth).
-3. Edge ring: square vignette/matte so the outer 5% of every frame is solid `#0F1E35`; feather inward 6–8%. This also removes any corner watermark.
-4. Grade: lift gold toward `#C9A84C`; crush background to the exact hex; verify with the colour picker on the corner pixels of three random frames.
-5. Planar-track the NexxVantage mark SVG (gold, matte finish) onto the seated module, beats 7–8 only. Planar-track the brief-card sentence (Inter, ivory, slight blur) onto the card, beats 1–2.
-6. Export PNG image sequence `f-000 … f-143`; poster = `f-143`.
-7. Run `scripts/hero-film/build.mjs`; check set sizes against §4 gates.
+2. Conform timeline to 1080×1080, 24 fps; retime each beat to **18 frames** of export (speed ramps, not frame drops, so scrub motion stays smooth).
+3. **Flatten the field.** The generator will have left a low-frequency gradient or haze behind the subject even when the prompt forbade one. Duplicate the clip, blur the copy hard (radius ≈ 200 px), subtract it from the original and add back flat `#0F1E35`. This kills gradients without touching the subject, because the subject is high-frequency and the blur does not see it. Then verify with the colour picker: any point 200 px from the subject, on any frame, must read **15 / 30 / 53**.
+4. Edge ring: `edge-ring-1080.png` on the top video track, full timeline. With step 3 done this is insurance, not the mechanism — and it still erases any corner watermark.
+5. Grade: lift gold toward `#C9A84C`; leave the field alone, step 3 already fixed it.
+6. **Mark, beat 7** — planar-track `mark-gold-512.png` onto the seated module (frames 108–125), Blend 0 → 1 across the six frames of the glint so it appears *with* the glint. Small: it is a signature, not a badge.
+7. **Mark, beat 8** (frames 126–143) — the film's ending, in three moves:
+   a. frames 126–133, the device eases back and the gold threads curl inward onto the screen (generated);
+   b. frames 134–139, `mark-gold-512.png` resolves on the screen face — scale it to sit inside the glass, Blend 0 → 1, and let the screen's own glow fall as the mark rises, so the mark *is* the light rather than sitting on top of it;
+   c. frames 140–143, the device scales down and fades to nothing while the mark scales up to its final size and holds, alone, on flat `#0F1E35`. No card, no panel, no border, no glow behind it — it must look like the mark simply arrived in the page.
+8. **Brief-card sentence** (frames 0–35): planar-track a `Text+` node onto the card — `Every quote takes us three days.`, Inter, ivory `#EFE6D0`, ~60 % of the card width, Blur 0.4 so it sits *in* the paper. Fade out with the card in beat 2.
+9. **Check the loop.** Put `f-143` and `f-000` side by side. Both are near-flat `#0F1E35` with one small subject; the cut between them must be invisible. If `f-143` carries any residual glow, flatten it — the loop is only as good as this one seam.
+10. Export PNG image sequence `f-000 … f-143`; poster = `f-143` (the mark alone).
+11. Run `scripts/hero-film/build.mjs`; check set sizes against §4 gates.
+12. **Loop file, once, for off-site use only:**
+    ```bash
+    ffmpeg -framerate 24 -i 05-masters/f-%03d.png -vf "fps=30" \
+      -c:v libx264 -pix_fmt yuv420p -crf 18 -movflags +faststart nexxvantage-loop.mp4
+    ```
+    Never referenced by the site.
 
 ---
 
 ## 9. Acceptance
 
-- Scrubbing both directions is frame-exact with no visible pop; corner pixels of the live canvas equal the CSS background in both directions of the feather.
+- Scrubbing both directions is frame-exact with no visible pop.
+- **Background:** on three random frames, every point more than 200 px from the subject reads exactly `15 / 30 / 53`. No horizon, no surface, no cast shadow, no vignette anywhere in the film.
+- **Loop:** `f-143` next to `f-000` shows no seam. The exported MP4 plays on repeat without a visible restart.
 - At `p = 0` the hero passes the existing accessibility and LCP gates; CTAs are clickable without scrolling.
-- Reduced-motion, save-data, and no-JS each render the poster hero with CTAs.
+- Reduced-motion, save-data and no-JS each render the poster hero with CTAs. The poster is the mark alone on `#0F1E35`.
 - Method section renders without WebGL; no `MarkCanvas` import remains.
-- The film contains no wordmark, no CTA, and no logo other than the post-composited signature glyph.
+- The film contains no wordmark and no CTA. The mark appears exactly twice: composited on the signature module in beat 7, and resolving on the screen and then alone in beat 8. No `<Logo />` in the closing HTML block.
+- The device's module count and rim are identical in every still that shows the device.
 
 ## 10. Later (explicitly out of scope now)
 
-Light sibling (§6 step 6); 600-set frame-count reduction if mobile memory proves tight; per-beat sound design (none — silent film).
+600-set frame-count reduction if mobile memory proves tight; per-beat sound design (none — silent film). A light-theme sibling is no longer planned: `.nv-velvet` keeps the hero midnight in both themes, so one frame set serves both.
