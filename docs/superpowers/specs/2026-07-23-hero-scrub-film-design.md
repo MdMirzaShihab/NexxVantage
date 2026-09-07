@@ -122,9 +122,31 @@ Beat 8 is generated only as far as the device settling and the threads gathering
 
 The negative block does most of the work here. Image models default to putting objects *on* something; the flat field has to be asked for in the positive prompt and forbidden in the negative one, or the bench comes back.
 
-**Device design brief (step 1) — settled, reference approved 2026-09-07** (`01-references/ref-device-front.png`): a laminated four-tier block floating in empty space with nothing supporting it and no shadow, seen isometrically from about 32° above. Top to bottom the tiers are **interface glass** (obsidian, carrying a large plain screen panel and the module bays), **workflow boards**, a **gold AI core** band, and an **infrastructure lattice** base. The top plate carries **three square bays: two holding brushed-gold modules, one empty** — a genuine dark recess with matte interior walls and gold contact pads on its floor, not a tray.
+**Device design brief — settled 2026-09-07.** References: `01-references/ref-device-front.png` (the parent) and
+`ref-device-detail.png` (macro of the bay row, the size reference for S3 and for the beat 6–7 socket edits).
 
-> Why a stepped stack and not a slab: four earlier attempts used a thin rounded rectangle, and at 240 px that silhouette is owned by phones, cards, tablets and drives. Six blind readers of the fourth attempt returned *memory card, payment card, SD card, smart-card chip, keypad, card reader* — none said software. The laminated stack killed that read outright and, more usefully, **pre-announces beat 5 while the device is still sealed**: six of six readers see it as layered, and six of six see the empty socket. It now reads as a microchip or semiconductor package — adjacent-wrong rather than wrong-brand, and the motion is what carries the meaning anyway.
+A laminated four-tier block floating in empty space with nothing supporting it and no shadow, seen isometrically
+from about 32° above. Top to bottom: **interface glass** (obsidian, carrying a bounded dark screen panel and the
+module bays), **workflow boards**, a **gold AI core** band, and an **infrastructure lattice** base of coarse
+countable square cells. The top plate carries **three square bays: two holding brushed-gold modules, one empty** —
+a genuine dark recess with matte interior walls and gold contact pads on its floor, not a tray.
+
+> **The lattice must stay coarse.** An earlier candidate used a fine perforated base, and at 240 px that band
+> flips luminance 4 → 82 → 4 in three-pixel steps. Under scroll-scrub and AVIF compression it shimmers frame to
+> frame, and every one of the eight children would inherit it. Coarse cells are low-frequency and
+> generation-stable. This is the reason the approved parent is the materials-polished candidate rather than the
+> one with the larger screen.
+
+> **Beat 5 caveat.** In the approved parent the lattice tier is gold, so the four layers separate as glass /
+> boards / gold / gold. Fix this in **S5 only** — ask for the lattice tier to be dark obsidian with gold edges —
+> rather than regenerating the parent. It is a tint, not a structure.
+
+> Why a stepped stack and not a slab: four earlier attempts used a thin rounded rectangle, and at 240 px that
+> silhouette is owned by phones, cards, tablets and drives. Six blind readers of the fourth attempt returned
+> *memory card, payment card, SD card, smart-card chip, keypad, card reader* — none said software. The laminated
+> stack killed that read outright and **pre-announces beat 5 while the device is still sealed**: every blind
+> reader sees it as layered, and every one sees the empty socket. It now reads as a microchip or semiconductor
+> package — adjacent-wrong rather than wrong-brand, and the motion is what carries the meaning anyway.
 
 **Keyframe stills (step 2)** — each begins with the global block, then:
 

@@ -26,13 +26,90 @@ const { width: W, height: H, channels: C } = info;
 const px = new Uint8Array(data);
 const dist = (i) => Math.max(Math.abs(px[i] - TARGET[0]), Math.abs(px[i + 1] - TARGET[1]), Math.abs(px[i + 2] - TARGET[2]));
 
-// --- flood the ground in from the border ---
+// --- a keep-out region the flood may never enter ---
+// The flood alone is not safe. It travels through ANY dark path connected to the frame edge, and a
+// dark screen panel that reaches the object's outline is exactly such a path — on the first real
+// reference it leaked in and erased a third of the screen. So bound it: take the pixels that are
+// unambiguously subject, hull them, dilate, and treat that whole area as untouchable.
+// The keep-out is the subject's bounding RECTANGLE plus a margin — deliberately blunt.
+//
+// A cleverer boundary was tried and was wrong twice. A plain border flood walked into the dark screen
+// panel through the object's outline and erased a third of it. An orthogonal row/column hull failed the
+// same way, because a dark screen is not "solid" enough to anchor the hull where it meets the outline,
+// so the columns above it hulled to the gold rim far below and left the screen exposed. Obsidian glass
+// and a midnight ground are the same colour; no colour rule separates them reliably.
+//
+// So: snap only OUTSIDE the rectangle. That is provably incapable of touching the subject. What it
+// gives up is the background inside the rectangle — four corner regions hugging the object, where a
+// residual gradient is both tiny and visually hidden against the object, and where the post edge-ring
+// lands anyway.
+const SOLID = 45;   // this far from TARGET is unambiguously subject
+const KEEPOUT = 12; // px of margin around the subject's bounding rectangle
+let bx0 = W, bx1 = -1, by0 = H, by1 = -1;
+for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+  if (dist((y * W + x) * C) < SOLID) continue;
+  if (x < bx0) bx0 = x; if (x > bx1) bx1 = x;
+  if (y < by0) by0 = y; if (y > by1) by1 = y;
+}
+bx0 -= KEEPOUT; bx1 += KEEPOUT; by0 -= KEEPOUT; by1 += KEEPOUT;
+const inside = (x, y) => x >= bx0 && x <= bx1 && y >= by0 && y <= by1;
+
+// --- flat-field correction: model the gradient, subtract it, touch nothing structurally ---
+// Sample the ground only OUTSIDE the keep-out rectangle, where every pixel is provably background,
+// and least-squares fit a quadratic surface per channel. Subtracting that surface from the WHOLE
+// frame removes the lighting drift everywhere — including the corners hugging the object, which a
+// mask can never reach safely. It shifts the subject by the same handful of levels, which is correct:
+// the drift came from the render's lighting, not from the object.
+{
+  const basis = (x, y) => {
+    const u = (2 * x) / W - 1, v = (2 * y) / H - 1;
+    return [1, u, v, u * u, u * v, v * v];
+  };
+  const K = 6;
+  for (let c = 0; c < 3; c++) {
+    const A = Array.from({ length: K }, () => new Float64Array(K));
+    const b = new Float64Array(K);
+    for (let y = 0; y < H; y += 3) for (let x = 0; x < W; x += 3) {
+      if (inside(x, y)) continue;
+      const i = (y * W + x) * C;
+      if (dist(i) >= NEAR) continue;
+      const f = basis(x, y), val = px[i + c];
+      for (let a = 0; a < K; a++) { for (let d2 = 0; d2 < K; d2++) A[a][d2] += f[a] * f[d2]; b[a] += f[a] * val; }
+    }
+    // Gaussian elimination with partial pivoting
+    const M = A.map((r, i) => Float64Array.from([...r, b[i]]));
+    for (let col = 0; col < K; col++) {
+      let piv = col;
+      for (let r = col + 1; r < K; r++) if (Math.abs(M[r][col]) > Math.abs(M[piv][col])) piv = r;
+      if (Math.abs(M[piv][col]) < 1e-9) continue;
+      [M[col], M[piv]] = [M[piv], M[col]];
+      for (let r = 0; r < K; r++) {
+        if (r === col) continue;
+        const f = M[r][col] / M[col][col];
+        for (let k = col; k <= K; k++) M[r][k] -= f * M[col][k];
+      }
+    }
+    const coef = new Float64Array(K);
+    for (let k = 0; k < K; k++) coef[k] = Math.abs(M[k][k]) < 1e-9 ? 0 : M[k][K] / M[k][k];
+    for (let y = 0; y < H; y++) {
+      for (let x = 0; x < W; x++) {
+        const f = basis(x, y);
+        let model = 0;
+        for (let k = 0; k < K; k++) model += coef[k] * f[k];
+        const i = (y * W + x) * C + c;
+        px[i] = Math.max(0, Math.min(255, Math.round(px[i] - model + TARGET[c])));
+      }
+    }
+  }
+}
+
+// --- then snap the residual outside the keep-out to exactly TARGET ---
 const ground = new Uint8Array(W * H);
 const stack = [];
 const push = (x, y) => {
   if (x < 0 || y < 0 || x >= W || y >= H) return;
   const n = y * W + x;
-  if (ground[n] || dist(n * C) >= NEAR) return;
+  if (ground[n] || dist(n * C) >= NEAR || inside(x, y)) return;
   ground[n] = 1;
   stack.push(n);
 };
