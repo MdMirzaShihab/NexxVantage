@@ -58,8 +58,10 @@ Generate 4–6. Two things to judge, in this order: **does it float** (no floor,
 
 **1.2 Turnaround — by editing, not regenerating.** Upload `ref-device-front.png` back into Gemini and ask, one at a time:
 
-- *"Keep this exact device, materials and lighting, still floating with nothing beneath it. Show it from a three-quarter view from the left."* → `ref-device-3q.png`
-- *"Same device. Macro close-up of the left edge with the gold modules and the empty recess."* → `ref-device-edge.png`
+- *"Keep this exact object, its four tiers, materials and lighting, still floating with nothing beneath it. Show it from a three-quarter view rotated further to the left."* → `ref-device-3q.png`
+- *"Same object. Macro close-up of the top plate showing the two seated gold modules and the empty socket."* → `ref-device-edge.png`
+
+> **Lesson from the eight generations this reference took.** Narrow edits land; compound ones get partially applied. Ask for one change at a time and check between. When the model refuses the same change three or four times — it would not produce a straight row or a 2×2 grid of bays — stop asking and change the requirement instead. Every edit pass in that chain fixed one thing and drifted another, with gold coverage creeping 8.4% → 10.1% → 12.2% before it came back down.
 
 **1.3 Check each still** against: floats with no surface, shadow or gradient ✓ · simple geometry ✓ · consistent module count + one recess ✓ · modules on the edge, not the face ✓ · square ✓ · silhouette reads at 240 px ✓. If Gemini returned a non-square image, crop in Preview and export PNG at ≥ 1024 px.
 
@@ -93,9 +95,12 @@ Save as `02-keyframes/S0.png … S7.png`, ≥ 1024 px square.
 
 1. Open all eight in Preview as a contact sheet and read them left to right as a story.
 2. Look at them at **240 px**. That is the size most visitors get. If a beat stops communicating there, it stops communicating.
-3. Check it numerically, from the repo:
+3. Check it numerically, from the repo. Run the flatten first — background and framing are **not** the model's job, they are exact and free:
 
    ```bash
+   for f in ~/NexxVantage-film/02-keyframes/S*.png; do
+     node scripts/hero-film/flatten-still.mjs "$f" "$f"
+   done
    node scripts/hero-film/check-still.mjs ~/NexxVantage-film/02-keyframes/S*.png \
      --ref ~/NexxVantage-film/01-references/ref-device-front.png
    ```
@@ -152,12 +157,21 @@ The background is the failure mode to watch. Video models reintroduce a ground p
 
 **4.2 Assembly.** One keeper per beat on **V1**, in order. Make each beat **exactly 120 frames** (5.000 s): right-click → **Change Clip Speed** → set **Frames = 120** → tick *Ripple Sequence*; leave *Optical Flow* **off** (pick *Nearest* — we want clean frames, not invented ones). Trim generator warm-up (the first ~6 frames of a take are often dead) before retiming. The timeline is now **960 frames = 40 s**, with beat boundaries every 120 frames.
 
-**4.3 Flatten the field — do this before anything else touches colour.** Kling will have left a soft gradient or haze behind the subject even when the prompt forbade one. On an adjustment layer over the whole timeline:
+**4.3 Flatten the field — do this before anything else touches colour.** Kling will have left a soft gradient or haze behind the subject even when the prompt forbade one.
 
-1. Duplicate the image, blur the copy hard — **radius ≈ 200 px**. The blur cannot see the subject (it is high-frequency); it sees only the background's slow variation.
-2. Subtract the blurred copy from the original, then add back a solid `#0F1E35`.
+The obvious recipe — duplicate, blur hard, subtract, add back `#0F1E35` — **does not work here, and it was wrong in an earlier version of this runbook.** The subject is bright and bleeds into the blur, so subtracting it darkens the ground immediately around the object and leaves a visible halo. Measured on a real keyframe it made things worse: p95 drift from the target went from 10.9 to 13.0.
 
-That removes gradients without touching the device. Then check with **Digital Color Meter** (set to *Display in sRGB*): pick any point 200 px away from the subject, on three random frames across three different beats — each must read **15 / 30 / 53**. This step, not the edge ring, is what makes the film blend into the page.
+What works is to flood the ground in from the frame border and snap only that region, because the background is by definition the part that touches the edge, and the object's own gold rim encloses its interior so the flood never reaches it. On the same keyframe that gets p95 drift **0.0**.
+
+- **On the stills**, before Kling ever sees them, run the script — it also reframes by padding, so no pixel is resampled:
+  ```bash
+  node scripts/hero-film/flatten-still.mjs in.png out.png 0.58
+  ```
+- **In Resolve**, on the rendered frames, use a **Luma Qualifier** picking the dark ground, feather it a few pixels, and flat-fill `#0F1E35` — the same idea, tracked over time. Do not use blur-subtract.
+
+Then verify with `check-still.mjs` (below) rather than by eye. This step, not the edge ring, is what makes the film blend into the page.
+
+> **Watch the top glass under motion.** Semi-random specular mottle on a glossy face is what image-to-video models boil and crawl on, and it reads as artifacting. Generate **beat 1 first** — it is the cheapest clip at 40 credits — and look specifically at whether the highlights on the glass wobble between frames before committing to the other seven. Budget one extra retry on beat 5 (the lattice is fine, high-frequency detail) and beat 7 (the bloom).
 
 **4.4 Edge ring.** Drag `edge-ring-1080.png` onto **V2**, stretch it over the full timeline. With 4.3 done this is insurance rather than the mechanism — and it still erases any corner watermark.
 
