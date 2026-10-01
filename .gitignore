@@ -49,3 +49,6 @@ next-env.d.ts
 
 # superpowers scratch (brainstorm artifacts, SDD workspace) — never commit
 .superpowers/
+
+# per-machine Claude Code permissions
+.claude/settings.local.json
