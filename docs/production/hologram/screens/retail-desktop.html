@@ -1,0 +1,57 @@
+<!doctype html><meta charset="utf-8"><link rel="stylesheet" href="../holo.css">
+<title>Northstar Commerce · overview</title>
+<style>
+/* sales chart fills the board; day labels sit beneath it, one column per point */
+.board.chart { grid-template-rows: auto 1fr auto; }
+.plot { width: 100%; height: 100%; display: block; }
+.days.d14 { grid-template-columns: repeat(14, 1fr); }
+.days.d14 span { text-align: center !important; }
+</style>
+  <div class="surface desk">
+    <aside class="side">
+      <div class="brand"><i>N</i>Northstar Commerce</div>
+      <div class="navi on"><s></s>Overview</div>
+      <div class="navi"><s></s>Orders<em>64</em></div>
+      <div class="navi"><s></s>Products</div>
+      <div class="navi"><s></s>Inventory</div>
+      <div class="navi"><s></s>Customers</div>
+      <div class="navi"><s></s>Campaigns</div>
+      <div class="navi"><s></s>Reports</div>
+    </aside>
+    <div class="main">
+      <div class="top"><h3>Overview</h3><span class="date">Fri · 18 Oct</span><div class="search">Search products, orders…</div><div class="av"></div></div>
+      <div class="kpis">
+        <div class="kpi"><span>Revenue</span><b>$84.2k</b><small>▲ 12% vs last week</small></div>
+        <div class="kpi"><span>Orders</span><b>1,318</b><small>64 pending</small></div>
+        <div class="kpi"><span>Conversion</span><b>3.8%</b><small>▲ 0.4 pts</small></div>
+        <div class="kpi"><span>Avg order</span><b>$63.90</b><svg viewBox="0 0 100 26" preserveAspectRatio="none"><polyline points="0,22 15,18 30,20 45,13 60,15 75,8 100,4" fill="none" stroke="#E6CB7E" stroke-width="2" vector-effect="non-scaling-stroke"/></svg></div>
+      </div>
+      <div class="board chart">
+        <header><b>Sales, last 14 days</b><span>all channels</span><div class="chips"><i class="on">Online</i><i>Stores</i><i>App</i></div></header>
+        <!-- 14 points at column centres (x = (i + .5) / 14 * 1000), rising, one weekend dip on Oct 12–13 -->
+        <svg class="plot" viewBox="0 0 1000 400" preserveAspectRatio="none" aria-hidden="true">
+          <g style="stroke: var(--hair)" stroke-width="1" vector-effect="non-scaling-stroke">
+            <line x1="0" y1="100" x2="1000" y2="100" vector-effect="non-scaling-stroke"/>
+            <line x1="0" y1="200" x2="1000" y2="200" vector-effect="non-scaling-stroke"/>
+            <line x1="0" y1="300" x2="1000" y2="300" vector-effect="non-scaling-stroke"/>
+            <line x1="0" y1="399" x2="1000" y2="399" vector-effect="non-scaling-stroke"/>
+          </g>
+          <polygon style="fill: var(--gold)" fill-opacity=".25"
+            points="36,400 36,310 107,291 179,296 250,262 321,247 393,229 464,239 536,340 607,327 679,192 750,169 821,146 893,110 964,50 964,400"/>
+          <polyline style="stroke: var(--gold-hi)" fill="none" stroke-width="2" stroke-linejoin="round" vector-effect="non-scaling-stroke"
+            points="36,310 107,291 179,296 250,262 321,247 393,229 464,239 536,340 607,327 679,192 750,169 821,146 893,110 964,50"/>
+        </svg>
+        <div class="days d14"><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span></div>
+      </div>
+    </div>
+    <aside class="ai">
+      <div class="ai-h"><span class="orb"></span><span><b>AI Forecast</b><small>● updated 2 min ago</small></span></div>
+      <div class="msgs">
+        <div class="m u">What should we restock before the weekend?</div>
+        <div class="m a">Demand for <b>Linen Shirt · Sand</b> will run out by Saturday at current pace; <b>Canvas Tote</b> is trending 3x.</div>
+        <div class="card"><b>Reorder 240 units · 2 SKUs</b><span>arrives Thu · $3,180</span><u>Approve order</u></div>
+        <div class="typing"><i></i><i></i><i></i></div>
+      </div>
+      <div class="input">Ask about sales or stock…<i></i></div>
+    </aside>
+  </div>

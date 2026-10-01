@@ -1,0 +1,37 @@
+<!doctype html><meta charset="utf-8"><link rel="stylesheet" href="../holo.css">
+<title>Incoming video call</title>
+<style>
+/* incoming call: status, centred caller, two round actions. Brand palette only, no red/green. */
+.phone.call { grid-template-rows: auto 1fr auto; }
+.caller { display: grid; justify-items: center; align-content: center; gap: 10px; padding-bottom: 60px; }
+.ring { position: relative; width: 200px; height: 200px; display: grid; place-items: center; margin-bottom: 26px; }
+.ring s { position: absolute; border-radius: 50%; border: 1px solid var(--gold); }
+.ring s:nth-child(1) { width: 140px; height: 140px; opacity: .5; }
+.ring s:nth-child(2) { width: 170px; height: 170px; opacity: .3; }
+.ring s:nth-child(3) { width: 200px; height: 200px; opacity: .15; }
+.ring .face { width: 120px; height: 120px; border-radius: 50%; border: 1.5px solid var(--gold);
+  background: radial-gradient(circle at 50% 40%, rgba(230, 203, 126, .7) 0 28%, transparent 30%), rgba(201, 168, 76, .15); }
+.caller b { font: 500 30px/1.1 var(--display); }
+.caller span { font: 13px/1 var(--mono); color: var(--muted); }
+.acts { display: flex; justify-content: space-around; padding: 0 40px 56px; }
+.act { display: grid; justify-items: center; gap: 10px; font: 500 12px/1 var(--body); color: var(--muted); }
+.btn { width: 64px; height: 64px; border-radius: 50%; display: grid; place-items: center; box-sizing: border-box; }
+.btn.no { border: 1.5px solid var(--gold); }
+.btn.no::before { content: ""; width: 24px; height: 2.5px; border-radius: 2px; background: var(--gold); transform: rotate(-45deg); }
+.btn.yes { background: var(--gold); box-shadow: 0 0 24px rgba(201, 168, 76, .45); }
+.cam { display: flex; align-items: center; width: 24px; height: 24px; }
+.cam::before { content: ""; width: 16px; height: 12px; border-radius: 3px; background: var(--bg); }
+.cam::after { content: ""; border: 5px solid transparent; border-right: 7px solid var(--bg); border-left-width: 0; margin-left: 1px; }
+</style>
+  <div class="surface phone call">
+    <div class="ph-status">9:41<span>5G ▮▮▮</span></div>
+    <div class="caller">
+      <div class="ring"><s></s><s></s><s></s><div class="face"></div></div>
+      <b>Amina Rahman</b>
+      <span>Seabreeze Hotels · video call</span>
+    </div>
+    <div class="acts">
+      <div class="act"><div class="btn no"></div>Decline</div>
+      <div class="act"><div class="btn yes"><i class="cam"></i></div>Accept</div>
+    </div>
+  </div>
