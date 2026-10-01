@@ -1,7 +1,7 @@
 # Hero Scroll-Scrub Film — "The Atelier Commission"
 
 **Date:** 2026-07-23
-**Status:** Approved in brainstorming (owner decisions recorded inline)
+**Status:** SUPERSEDED 2026-09-30 by `2026-09-30-hero-hologram-film-design.md`. Kept for history.
 **Scope:** Replace the homepage hero's idle 3D mark with a scroll-scrubbed, image-sequence film that shows a client's software being made for them; the scrub engine, fallbacks, the AI production pipeline (prompt kit + post checklist), and the resulting simplification of the Method section.
 
 ---
