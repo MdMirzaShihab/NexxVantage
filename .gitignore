@@ -53,3 +53,8 @@ next-env.d.ts
 # per-machine Claude Code permissions
 .claude/settings.local.json
 .claude/worktrees/
+
+# hero-film reference pack: approved images synced between devices
+!docs/production/hologram/reference-pack/**/*.png
+!docs/production/hologram/reference-pack/**/*.jpeg
+!docs/production/hologram/reference-pack/*.jpeg
