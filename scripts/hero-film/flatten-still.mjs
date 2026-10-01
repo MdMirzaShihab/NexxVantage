@@ -16,10 +16,11 @@ const SUBJECT = 18;   // ...and this far from it counts as subject when measurin
 
 const [inFile, outFile, fracArg] = process.argv.slice(2);
 if (!inFile || !outFile) {
-  console.error("usage: node scripts/hero-film/flatten-still.mjs <in> <out> [subjectFraction=0.58]");
+  console.error("usage: node scripts/hero-film/flatten-still.mjs <in> <out> [subjectFraction=0.58 | keep]");
   process.exit(2);
 }
-const frac = Number(fracArg ?? 0.58);
+const keep = fracArg === "keep";   // chained keyframes: snap the ground, never move the framing
+const frac = keep ? 1 : Number(fracArg ?? 0.58);
 
 const { data, info } = await sharp(inFile).removeAlpha().raw().toBuffer({ resolveWithObject: true });
 const { width: W, height: H, channels: C } = info;
@@ -139,29 +140,35 @@ for (let n = 0; n < W * H; n++) {
   for (let c = 0; c < 3; c++) px[i + c] = Math.round(px[i + c] * (1 - a) + TARGET[c] * a);
 }
 
-// --- bounding box of the subject, then pad (never scale) to the requested fraction ---
-let x0 = W, x1 = -1, y0 = H, y1 = -1;
-for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
-  if (dist((y * W + x) * C) <= SUBJECT) continue;
-  if (x < x0) x0 = x; if (x > x1) x1 = x;
-  if (y < y0) y0 = y; if (y > y1) y1 = y;
+if (keep) {
+  await sharp(Buffer.from(px), { raw: { width: W, height: H, channels: C } }).png().toFile(outFile);
+  console.log(`${inFile} -> ${outFile}`);
+  console.log(`  ground snapped to #0F1E35 over ${((100 * ground.reduce((a, b) => a + b, 0)) / (W * H)).toFixed(1)}% of the frame; framing kept`);
+} else {
+  // --- bounding box of the subject, then pad (never scale) to the requested fraction ---
+  let x0 = W, x1 = -1, y0 = H, y1 = -1;
+  for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+    if (dist((y * W + x) * C) <= SUBJECT) continue;
+    if (x < x0) x0 = x; if (x > x1) x1 = x;
+    if (y < y0) y0 = y; if (y > y1) y1 = y;
+  }
+  const sw = x1 - x0 + 1, sh = y1 - y0 + 1;
+  let canvas = Math.round(Math.max(sw, sh) / frac);
+  canvas += canvas % 2;
+  const left = ((canvas - sw) >> 1) - x0;
+  const top = ((canvas - sh) >> 1) - y0;
+
+  await sharp(Buffer.from(px), { raw: { width: W, height: H, channels: C } })
+    .extend({
+      left: Math.max(0, left), top: Math.max(0, top),
+      right: Math.max(0, canvas - W - left), bottom: Math.max(0, canvas - H - top),
+      background: { r: TARGET[0], g: TARGET[1], b: TARGET[2] },
+    })
+    .png()
+    .toFile(outFile);
+
+  const pct = ((100 * Math.max(sw, sh)) / canvas).toFixed(1);
+  console.log(`${inFile} -> ${outFile}`);
+  console.log(`  ground snapped to #0F1E35 over ${((100 * ground.reduce((a, b) => a + b, 0)) / (W * H)).toFixed(1)}% of the frame`);
+  console.log(`  subject ${sw}x${sh} kept at native size; canvas ${canvas}x${canvas}; subject now ${pct}% of frame width`);
 }
-const sw = x1 - x0 + 1, sh = y1 - y0 + 1;
-let canvas = Math.round(Math.max(sw, sh) / frac);
-canvas += canvas % 2;
-const left = ((canvas - sw) >> 1) - x0;
-const top = ((canvas - sh) >> 1) - y0;
-
-await sharp(Buffer.from(px), { raw: { width: W, height: H, channels: C } })
-  .extend({
-    left: Math.max(0, left), top: Math.max(0, top),
-    right: Math.max(0, canvas - W - left), bottom: Math.max(0, canvas - H - top),
-    background: { r: TARGET[0], g: TARGET[1], b: TARGET[2] },
-  })
-  .png()
-  .toFile(outFile);
-
-const pct = ((100 * Math.max(sw, sh)) / canvas).toFixed(1);
-console.log(`${inFile} -> ${outFile}`);
-console.log(`  ground snapped to #0F1E35 over ${((100 * ground.reduce((a, b) => a + b, 0)) / (W * H)).toFixed(1)}% of the frame`);
-console.log(`  subject ${sw}x${sh} kept at native size; canvas ${canvas}x${canvas}; subject now ${pct}% of frame width`);

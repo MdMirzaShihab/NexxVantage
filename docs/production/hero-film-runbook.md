@@ -1,5 +1,7 @@
 # Hero Film — Production Runbook
 
+> **SUPERSEDED 2026-10-01** by `docs/superpowers/specs/2026-09-30-hero-hologram-film-design.md` and `docs/superpowers/plans/2026-10-01-hero-hologram-film.md`. Kept for history; the Kling settings and pricing notes still apply.
+
 **Companion to:** `docs/superpowers/specs/2026-07-23-hero-scrub-film-design.md` (the what) and `docs/superpowers/plans/2026-07-23-hero-scrub-film.md` (the code). This is the *how*, for one person, on a Mac, with a Gemini account and a Kling Standard plan.
 
 **Output you are producing:** `hero-film-masters/dark/f-000.png … f-143.png` — 144 square 1080×1080 PNGs, 18 per beat, **every frame's background flat `#0F1E35` edge to edge**, subject floating. Frame 143 is the NexxVantage mark alone on that flat field, and it must sit next to frame 0 without a seam — the film loops. Nothing else. The code session turns them into the website.

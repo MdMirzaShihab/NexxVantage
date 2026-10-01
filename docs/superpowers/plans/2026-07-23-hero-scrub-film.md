@@ -1,5 +1,7 @@
 # Hero Scroll-Scrub Film Implementation Plan
 
+> **SUPERSEDED 2026-10-01** by `docs/superpowers/specs/2026-09-30-hero-hologram-film-design.md` and `docs/superpowers/plans/2026-10-01-hero-hologram-film.md`. Kept for history; the Kling settings and pricing notes still apply.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Replace the homepage hero's idle 3D mark with a pinned, scroll-scrubbed 144-frame image-sequence film (shipped first with a code-rendered animatic), with poster fallbacks, and simplify the Method section to a calm block.

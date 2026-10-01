@@ -1,4 +1,4 @@
-// Gate a hero-film keyframe: flat #0F1E35 field, square, gold in family, nothing at the edges.
+// Gate a hero-film keyframe: flat #0F1E35 field, square, gold in family, subjects float clear of the edge.
 // Run: node scripts/hero-film/check-still.mjs <file.png> [more.png ...] [--ref approved.png]
 //
 // On gold: a diffusion model will not hit #C9A84C, and that is fine — a single hue rotation in
@@ -14,7 +14,9 @@ const TILE = 32;
 const FLAT_STD = 3;                    // a tile with less variation than this is featureless
 const FIELD_NEAR = 45;                 // ...and this close to TARGET to count as field, not a flat subject
 const MAX_DRIFT = 6;                   // how far a field tile may sit from TARGET
-const MIN_FIELD = 0.55;                // field must cover at least this much of the frame
+const MIN_FIELD = 0.40;                // field must cover at least this much of the frame (multi-subject frames)
+const MAX_SUBJECT = 0.60;              // subjects may cover up to this much; they must still float clear of the edge
+const EDGE_BAND = 0.05;                // the site feathers the outer 5% of the square
 
 const d3 = (a, b) => Math.max(...a.map((v, i) => Math.abs(v - b[i])));
 const median = (a) => { const c = [...a].sort((x, y) => x - y); return c[c.length >> 1]; };
@@ -96,9 +98,9 @@ async function check(file, ref) {
   const p95 = drifts.length ? drifts[Math.floor(drifts.length * 0.95)] : Infinity;
   const goldPct = (100 * gold) / ((W / 3) * (H / 3));
 
-  // content in the outer 15% — the post ring covers it
+  // content in the outer band — the site's CSS feather fades it
   let edge = 0, edgeTot = 0;
-  const m = Math.round(W * 0.15);
+  const m = Math.round(W * EDGE_BAND);
   for (let y = 0; y < H; y += 3) for (let x = 0; x < W; x += 3) {
     if (x >= m && x < W - m && y >= m && y < H - m) continue;
     edgeTot++;
@@ -109,7 +111,7 @@ async function check(file, ref) {
     square: W === H && Math.min(W, H) >= 1024,
     field: field >= MIN_FIELD,
     drift: p95 <= MAX_DRIFT,
-    floats: !touches && subjectPct <= 0.45,
+    floats: !touches && subjectPct <= MAX_SUBJECT,
     // Only enforced when a reference still is given; accuracy is the grade's job, family is not.
     goldFamily: !ref || !ref.hue || !goldHsv.hue || Math.abs(goldHsv.hue - ref.hue) <= MAX_HUE_DRIFT,
   };
@@ -130,7 +132,7 @@ async function check(file, ref) {
     console.log(`  gold .................. ${mark(ok.goldFamily)}  hue ${goldHsv.hue.toFixed(1)}deg sat ${goldHsv.sat.toFixed(2)} over ${goldPct.toFixed(2)}% of pixels`);
     console.log(`      ${(off >= 0 ? "+" : "") + off.toFixed(1)}deg from #C9A84C (a uniform offset is fine, one Resolve node fixes it)${fam}`);
   }
-  console.log(`  content in outer 15% .. ${((100 * edge) / edgeTot).toFixed(1)}%${edge / edgeTot > 0.02 ? "  <- the post ring will cover it" : ""}`);
+  console.log(`  content in outer ${EDGE_BAND * 100}% ... ${((100 * edge) / edgeTot).toFixed(1)}%${edge / edgeTot > 0.02 ? "  <- the CSS feather will fade it; keep subjects inside" : ""}`);
   console.log(`  VERDICT ............... ${Object.values(ok).every(Boolean) ? "ACCEPT" : "REGENERATE"}`);
   return { ok: Object.values(ok).every(Boolean), hue: goldHsv.hue, sat: goldHsv.sat };
 }
