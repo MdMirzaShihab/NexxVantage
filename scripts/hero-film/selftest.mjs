@@ -2,7 +2,7 @@
 // Builds synthetic 1080² frames with sharp, runs the real scripts on them, asserts the verdicts.
 import sharp from "sharp";
 import { execFileSync } from "node:child_process";
-import { mkdtempSync } from "node:fs";
+import { mkdtempSync, existsSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import assert from "node:assert/strict";
@@ -44,5 +44,13 @@ const px = (x, y) => [...data.subarray((y * S + x) * info.channels, (y * S + x) 
 assert.deepEqual(px(20, 20), [15, 30, 53], "corner should be snapped to #0F1E35");
 // The flat-field fit shifts the whole frame by the background's offset (+4,+4,+9), subject included — by design.
 assert.deepEqual(px(540, 540), [205, 172, 85], "subject centre shifts by exactly the background offset");
+
+// 4. A subject reaching all four edges leaves no ground to fit: refuse, and write nothing.
+const edges = await frame("edges.png", BG, [
+  blob(300, 300, 480, 480), blob(0, 500, 8, 8), blob(1072, 500, 8, 8), blob(500, 0, 8, 8), blob(500, 1072, 8, 8),
+]);
+const edgesOut = join(dir, "edges-out.png");
+assert.notEqual(run("flatten-still.mjs", [edges, edgesOut, "keep"]), 0, "subject at every edge should be refused");
+assert.equal(existsSync(edgesOut), false, "no output file when the fit is empty");
 
 console.log("selftest: all passed");

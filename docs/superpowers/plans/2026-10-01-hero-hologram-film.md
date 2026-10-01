@@ -467,12 +467,13 @@ Always **edit** the previous approved keyframe with the listed attachments; neve
 
 ```bash
 K=~/NexxVantage-film/02-keyframes
+mkdir -p $K/raw
 node scripts/hero-film/flatten-still.mjs $K/raw/Kn.png $K/Kn.png keep
 node scripts/hero-film/check-still.mjs $K/Kn.png --ref $K/K2.png      # for K2 itself, omit --ref
 sips -Z 280 $K/Kn.png --out /tmp/Kn-280.png
 ```
 
-Then Claude opens `Kn.png` and `/tmp/Kn-280.png` with the Read tool and checks: the verdict is `ACCEPT`; the mark matches K1; the robot matches the sheet; the client matches `client-ref.jpeg`; positions match the spec's layout; at 280 px the mark, the robot, the client's smile and (K7) the tick are still recognisable. If Gemini returns a non-square image, the owner regenerates; do not crop.
+Then Claude opens `Kn.png` and `/tmp/Kn-280.png` with the Read tool and checks: the verdict is `ACCEPT` and the "content in outer 5%" line has been read too; the mark matches K1; the robot matches the sheet; the client matches `client-ref.jpeg`; positions match the spec's layout; at 280 px the mark, the robot, the client's smile and (K7) the tick are still recognisable. If Gemini returns a non-square image, the owner regenerates; do not crop.
 
 Save Gemini's raw output as `~/NexxVantage-film/02-keyframes/raw/Kn.png` (convert JPEG with `sips -s format png in.jpeg --out raw/Kn.png`).
 

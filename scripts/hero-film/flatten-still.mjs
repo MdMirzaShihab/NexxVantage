@@ -67,6 +67,12 @@ const inside = (x, y) => x >= bx0 && x <= bx1 && y >= by0 && y <= by1;
     return [1, u, v, u * u, u * v, v * v];
   };
   const K = 6;
+  let samples = 0;
+  for (let y = 0; y < H; y += 3) for (let x = 0; x < W; x += 3) if (!inside(x, y) && dist((y * W + x) * C) < NEAR) samples++;
+  if (samples < 300) {
+    console.error(`subject reaches every edge (${samples} ground samples); regenerate with more margin`);
+    process.exit(1);
+  }
   for (let c = 0; c < 3; c++) {
     const A = Array.from({ length: K }, () => new Float64Array(K));
     const b = new Float64Array(K);
