@@ -2,11 +2,16 @@
 
 Everything you need to produce the hero film from any computer: setup, every prompt to paste, every setting, and the checks that run before credits are spent.
 
+**On a new computer:** `git pull`, open Claude Code in the repo and say *"let's continue the hero hologram film"*. Claude reads this file (it is linked from `AGENTS.md`) and picks up at the first step below that is not Done.
+
 - **Spec (the why):** `docs/superpowers/specs/2026-09-30-hero-hologram-film-design.md`
 - **Plan (the full technical version):** `docs/superpowers/plans/2026-10-01-hero-hologram-film.md`
 - **Concept boards:** [opening motion](https://claude.ai/artifact/534SbVsk7byyiWCnknCnB9) · [robot looks](https://claude.ai/artifact/FC2dYresHim2uTLxyBsuMk) · [approved screens](https://claude.ai/artifact/Vi2yXJ8aGsJR6he8eU5TLQ)
 
 ## Where things stand (2026-10-01)
+
+Claude keeps this table current: when a step is approved, mark it Done here, commit and push.
+
 
 | Step | Status |
 |---|---|

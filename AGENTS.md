@@ -72,3 +72,11 @@ When building UI, USE these existing CSS classes from nv-theme.css:
 - Use CSS custom properties, not Tailwind classes for brand colors (the tokens auto-switch themes)
 - Keep components small and focused
 - Do NOT change content or functionality — only visual styling
+## Hero Hologram Film (in progress)
+When the owner asks about the hero film, hologram video, Kling/Gemini prompts, keyframes or "where were we":
+- Read `docs/production/hologram/RUNBOOK.md` first. Its **"Where things stand"** table is the source of truth for progress — resume at the first step not marked Done. Every prompt, setting and check command is in that file.
+- Design authority: `docs/superpowers/specs/2026-09-30-hero-hologram-film-design.md`. Technical plan: `docs/superpowers/plans/2026-10-01-hero-hologram-film.md` (Tasks 1–3 done; 4–6 owner; 7–8 Claude once the Resolve master exists — run them with subagent-driven development).
+- Approved and locked (do not reopen unless the owner asks): story "The Commission", robot R4 "The Halo", the hijab hologram client (`reference-pack/client-ref.jpeg`), the seven screens in `reference-pack/screens/`, square 1:1 muted autoplay loop in the hero's right column.
+- Roles: the owner generates in Gemini, Kling and Resolve. Claude hands over the exact prompt from the runbook, runs the runbook's check commands on what the owner produces, looks at every image itself (including at 280 px), and says ACCEPT or what to regenerate.
+- After the owner approves an image: copy it into `docs/production/hologram/reference-pack/`, mark the step Done in the runbook's status table, commit and push — that is how progress reaches the owner's other devices.
+- On a new device, the working folder `~/NexxVantage-film/` will not exist: create it from the reference pack per RUNBOOK §0 (and `npm install`) before running any check.
